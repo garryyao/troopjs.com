@@ -1,0 +1,31 @@
+---
+area: docs
+section: concepts
+title: Compose
+order: 0
+---
+
+> The compose module is a mixin based object composition factory, features powerful and robust
+> object creation and deterministic multiple inheritance, notablely it DOES NOT use prototype chain for inheritance,
+> which eliminates unexpected modification from prototype chain, and being more performant.
+
+## Extend
+
+The factory assists in composing both constructors or instances, by consuming a **specification**
+object, by mixing in all properties found in object onto the original and return a new constructor.
+
+{{ gist '928caf126ff7f3152bab'}}
+
+## Composite
+
+Factory can be quite flexiable, one or more **specs** or **constructors** can be passed as arguments,
+ordered from left to right, with the ones comes later taken precedence (overriding) over the
+former.
+
+{{ gist '1b1920aca7d4817cf228'}}
+
+Besides of regular object composition feature, the factory also introduces a few necessary features for building TroopJS
+component:
+
+- **Decorators** are convenient method override eliminating the need for `super` call;
+- **Specials** are irregular functions for describing reactive component behaviors, aka. event listeners.

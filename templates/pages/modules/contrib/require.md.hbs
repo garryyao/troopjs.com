@@ -1,0 +1,69 @@
+---
+area: contrib
+section: modules
+title: troopjs-require
+---
+
+> Since TroopJS relies on requirejs for AMD, the [troopjs-require](https://github.com/troopjs/troopjs-require) module is
+> to provide you several requirejs [plugins](http://requirejs.org/docs/plugins.html) that expands the possibility to
+> load various types of resources.
+
+
+## Load JSON
+
+The `troopjs-requirejs/json` plugin allows you to select arbitary properties from a JSON file loaded. The following is
+`troopjs/version` module that examplify it's usage.
+
+```js
+define("troopjs/version", [ "json!./bower.json#version" ], function (version) {
+  return version;
+});
+```
+
+## AMDify your module
+
+The `troopjs-requirejs/shadow` plugin wrap any non-AMD module with your specified variable deps and exports,
+it works by loading JavaScript source from ajax, so be aware it is constrainted by same-origin-policy unless you're
+working with an optimized bundle.
+
+The following example AMDify the bootstrap tooltip module under path `bootstrap.tooltip` which depends on the `jquery`
+AMD module.
+
+```js
+define("my-tooltip", ["shadow!bootstrap.tooltip#jQuery=jquery"], function(Tooltip){});
+```
+
+The following example AMDify bootstrap tooltip module under path `bootstrap.tooltip` which depends on the exports of
+the `jquery` module which is already an AMD one.
+
+```js
+require(["shadow!bootstrap.tooltip#jQuery=jquery"], function(Tooltip){});
+```
+
+The other example AMDify backbone.js which depends on `jquery` and exports the `Backbone` variable.
+```js
+require(["shadow!backbone#jQuery=jquery&exports=Backbone"], function(Backbone){});
+```
+
+## Load multiple versions of TroopJS
+
+Do you know requirejs has a [context](http://requirejs.org/docs/1.0/docs/api.html#multiversion) concept which allows for
+you to two different "generations" of module versions on the same page, TroopJS utilize this feature to bridge two versions
+of TroopJS (like a wormhole) that are considered incompitble, this would not be possible without `troopjs-requirejs/multiversion`
+plugin which basically allows one module to be required from within a different context, eventually referencing it.
+
+```js
+require(["troopjs-opt/pubsub/proxy/to1x", "mv!troopjs-core/pubsub/hub#troopjs-1.0"], function (HubProxy, v1Hub) {
+  HubProxy({
+    "hub" : v1Hub,
+    "publish" : {
+      "authenticate" : "login",
+    },
+    "subscribe" : {
+      "news" : "feeds"
+    }
+  });
+});
+```
+The above example maps hub messages from TroopJS 1.x version to new names in TroopJS 3.x, loading `troopjs-core/pubsub/hub`
+from the "1.x" requirejs context.

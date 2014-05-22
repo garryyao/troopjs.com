@@ -1,0 +1,11 @@
+{
+  "marked": {
+    "sanitize": false
+  },
+  "prettify": {
+    "indent": 2,
+    "condense": true,
+    "padcomments": true
+  },
+  "production": true
+}

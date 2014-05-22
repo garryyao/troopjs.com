@@ -1,0 +1,104 @@
+---
+area: docs
+section: concepts
+title: Events
+order: 2
+---
+
+> Events in TroopJS is the heart of powering all **reactive** methods on component - functions declaired as specials
+> that are actually event hanlders, like signals, hub subscribers, and route functions.
+> Events enforced decoupling of functionality allows developer to consider each component
+> in isolation, and communicate loosely without direct references, contract by event name (topic) and values,
+> which significant reduces the growing complexity of the application and facilitate scalability.
+
+
+## Event
+
+A standard compliant event system is provided by `core/event/emitter` component mimic Node.js [event emitter API](http://nodejs.org/api/events.html),
+but to distinguish with most of the common event system, Troop's events are intrinsically *asynchronous**  - it always return
+a **promise** that is resolved when all listeners have resolved, each handler function if returning a promise, depending on
+the runner (explained later on) could potentially blocks from entering the next handler in queue.
+
+{{ gist 'c31c7b9ca2e99d086e1f'}}
+
+As in above example, regular events subscription on component can be written in special like "on/login", which is
+equivilent to imperative way of registering an event listener, the scope of the hanlder function will always be the
+component itself:
+
+{{ gist 'baf3a2b1287cf493f9c6'}}
+
+Arbitary arguments can be passed when calling `emit`, which will be always be recevied as **arguments** in handler function,
+return value of the `emit` function is runner (explained later on) dependent, but results for each of the listener
+function will always be an array - even if you returned just a single value from the handler, this allows for multiple
+values to be returned. So typically they have to be spread over to the callback arguments.
+
+{{ gist 'baf3a2b1287cf493f9c6'}}
+
+This type of events are best for internal component calls, or conversation among small group of components that are tightly coupled.
+
+## Hub
+
+Reguar events are not feasible if component has to talk to other components that are **yet unknown**, especially when multiple
+components have to be involved, typically a publisher/subscriber model.
+
+Hub is an singleton **event emitter** defined in `troopjs-core/pubsub/hub` from which events can be published and subscribed
+by any component across-board which facilitate components communication.
+
+A significant advantage of using hub is scalability, components can inject themselves in processing flow without modifying the host
+application, aka. live deploy. It also allows for swapping out implementations of components without having to update
+all the dependent applications. even to mock a certain module for testing or monitoring purpose.
+
+To use hub you don't really have to `troopjs-core/pubsub/hub`, TroopJS instead create you the delegated `publish` and `subscribe`
+methods on **component** level, which will delegate any publishing/subscription to hub while remains the scope of handler
+function being the subscriber component.
+
+By employing hub events, we can easily rewrite the above login authentication sample into two components, one of them as service:
+
+{{ gist '4156df60151b2ba7af8c'}}
+
+## Event Runner
+
+When there exist hub event that has more than one subscribers involved, TroopJS introduce the concept of **runner** -
+an optional argument to the `emit` method that defines serveral aspects of how handler functions are executed:
+
+ - The way how handlers are running, either running synchronously in a loop or asynchronously wait for the previous one to complete;
+ - What arguments do handler function receives, how return value from a handler affects the others;
+ - How return value from handler function affects the return value of the emitting;
+
+## Sequence
+
+Check the below example that does a sequential emitting, where all listeners are to receive the **same value**, and each of
+return value from handler function is individually collected as an array at the end, regular events and signals are running in this way.
+
+{{ gist '57b0f5ecff7eec3c2e22'}}
+
+## Pipeline
+
+Check the below example that does a pipelined emitting, where one listener is waiting for and to receive the **return values
+from the previous one** (unless nothing is returned), return value of the last handler function is collected as the return
+value for emitting, this is the way how **hub event** subscribers work.
+
+{{ gist '58323d08fceaaca82604'}}
+
+## Synchronous Sequence
+
+Check the below example that does synchronous sequencial emitting, it works in similiar with the sequential runner excepts
+that all listeners are running in a **loop without blocking** each other, disregard whether a promise is returned from the handler
+function, a few special signals (like 'setup/teardown/add/remove' are intentionally run in this way to avoid breaking
+synchronous call stack.
+
+{{ gist 'ae3e4338820e8b7d15f8'}}
+
+## Custom Runner
+
+The above used TroopJS event runners are built-in ones, while it is extremely easy for you to define a simple function
+that takes the **event name** and **handler candidates** as arguments and to return a promised value that is the return
+value of the `emit` function, internally what/how the handlers are executed are completely up to you.
+
+{{ gist 'd020337a618391ae084c'}}
+
+TroopJS specials are thus extremely extensible utilizing a new runner, for instance 'opt/route/gardget' component
+adds two specials - 'route/change' and 'route/add' by implementing a runner that hanle these two events, and only to
+call the listener when a route pattern specified in the special signature, like `route/change/:foo/(:bar)?` actually matches
+the URI, check `troopjs-opt` package for more details.
+

@@ -1,0 +1,38 @@
+{{#prettify}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{> head }}
+  </head>
+  <body{{#isnt title "Home"}} style="background: white;"{{/isnt}} data-spy="scroll" data-target=".bs-sidebar">
+
+
+    {{!-- global navigation
+    =================================== --}}
+    {{> navbar }}
+
+
+    {{!-- masthead
+    =================================== --}}
+    {{#is area 'docs'}}
+      {{> masthead-docs }}
+    {{/is}}
+    {{#is area 'contrib'}}
+      {{> masthead-contrib }}
+    {{/is}}
+
+
+    {{!-- content
+    =================================== --}}
+    {{> body }}
+
+
+    {{!-- footer scripts
+    =================================== --}}
+    {{> javascripts }}
+    <script>
+      $().showUp('.navbar');
+    </script>
+  </body>
+</html>
+{{/prettify}}

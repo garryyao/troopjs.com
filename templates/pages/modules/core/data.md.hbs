@@ -1,0 +1,74 @@
+---
+area: docs
+section: concepts
+title: Data
+order: 4
+---
+
+> The data module invent a DSL for querying complex JavasScript Object graph both from server and on the client,
+> along with the associated data structures for caching queried objects.
+
+## Object Graph (aka. cache)
+
+TroopJS query is built on an **object graph** implemented by `data/cache/component`, are essentially weakly referenced
+standalone objects living in a big cache pool, referencing others only by an **unique id**, by utilizing weak references,
+we're able to serialize the entire graph into big flatten JavaScript array that retains all the referenced objects:
+
+{{ gist 'd4f093558473c95eaf59'}}
+
+Two objects, both have an unique id that is consisted of a resource type and an identifier, e.g. `user!troopjs` or `profile!0`.
+`user` object is referencing it's profile by a **collapsed object** with the profile id, when querying for the
+user object, say, from server, it is possible that user is only interested in user's "email" rathen than the profile, making
+the `profile` property optionally **expandable**, in this way payload on the wire is optimizely reduced, allowing the client to re-assemble properties on demand:
+
+{{ gist 'ad68b9b23214efcd67be'}}
+
+It is an important consideration that Object Graph is of plain old JavaScript objects without imposing any intermediate
+data structure, this makes it extremely easy for consumption, blazingly fast and is future proof with data binding by Object.observe.
+expiration is by adding a few additional *meta properties*, even granular cache control for each objects is feasible.
+
+{{ gist '745a098c1533c145ec23'}}
+
+## Query
+
+With object graph defined above, a tiny DSL is invented to pull objects out of the graph,
+like `user!troopjs.repos.troopjs-core.pulls,.followers@2:3`, which syntax is consist of the following components:
+
+  - resource type: `user`
+  - id specifier: exclamation mark (!) following by id `troopjs`
+  - property accessor which is dot notation (.) following by property, occurring one or more times - `repos.troopjs-core`
+    - (optional) comma (,) separated multiple property accessors - `.followers`
+    - (optional) range specifier for array values: at (@) following by a range  number - `2:3`
+
+Then query API is a hub service provided by under the `query` topic which is implemented by `data/query/component`,
+returning a promise that resolves to a list of the queried values:
+
+{{ gist 'ed5e99767de7f4fee5f2'}}
+
+When performing a query, what TroopJS does is much more than simply sending the query to the server,
+instead it tries best to **reduce** the query from what we have on the client:
+
+ - rather than querying all requested resource, reduce the number of queries by checking if the queried components already
+exists in cache and is not expired yet.
+ - rather than sending a request per query, reduce the number of requests by joining multiple queries into fewer
+batched queries that are sent periodically.
+
+In the above example, if you have queried for `user!troopjs.repos` moments ago,
+this object will be returned immediately served from cache, eliminating the need for querying the server again,
+a significant benefit comming from the fact that since cache reducing is transparent for the query service,
+mock server communication is as simple as populating the cache:
+
+{{ gist 'def16e04f6439aa47f7d'}}
+
+## Cache Expiration
+
+The GC is an optional optimizational service provided by `data/cache/service` that take cares of de-referencing
+any expired objects from cache to free out memories, it implements a generation-based algorithms for efficiently
+determinate expired objects, each GC run should have very little impact on performance.
+The GC will be running automatically as soon as the service is started.
+
+## Persisted Cache
+
+The built-in cache component is memory-based, but it's fairly easy to implement a cache component powered by
+persisted storage, as an example for landing cache in localstorage, checkout `opt/store/component` and
+`contrib-browser/contrib-browser/store/adapter/local` for details.

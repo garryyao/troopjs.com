@@ -1,0 +1,6 @@
+---
+layout: false
+---
+{{debug}}
+{{log this.dest}}
+<li{{#is dest this.dest}} class="active"{{/is}}><a href="{{relative dest this.dest}}" {{> click-tracker }}>{{data.title}}</a></li>

@@ -1,0 +1,61 @@
+---
+area: docs
+section: getting started
+title: Introduction
+order: 0
+---
+
+> TroopJS is a tiny framework for building **scalable** javascript code,
+> being intrinsically modular, declarative, performant, and interoperable, it is considerably suitable for growing
+> complex and compound application that assembles massive amount of components.
+
+
+## Why TroopJS
+
+JavaScript web applications are typically built the hard way, the magnitude of complexity escalate rapidly especially
+when your application scales, disorganized, fragile, divergency code are always the culprits that harming you, TroopJS
+attempt to govern the madness with proven patterns and smart infrastructures, by embracing TroopJS your app will inheirt
+following unique genes:
+
+ * **Asynchronous** by [Promise A+](http://promises-aplus.github.io/promises-spec/), staynig away from callback hell;
+ * First-class **Component**, enforce to consider each component in isolation, addressing the growing complexity of
+large application, coincident with [Web component](http://www.w3.org/TR/components-intro) concept;
+ * Expressing behaviors in a **declarative** way, your code will stay sane and maintainable;
+ * **Event** for communications, reactive beats proactive, component DO NOT hold references to other components, staying
+fully interoperable via asynchronous events, all resulting in a well-structured application that scales.
+ * **Open ended** implementation, it doesn't prescribe any particular implementation of rendering or defining data models,
+so TroopJS component can be **integrated** seamlessly with any other libaries like jQuery plugins, template system, data-binding,
+rendering engine, controller, router, etc.
+
+## Compatibility
+
+Being a modern JavaScript library doesn't imply TroopJS raises your bar of browser compatibility, all bundle modules are fully
+compatible all the way **down to IE6**.
+
+Since TroopJS is written with a lot performance awareness, it is blazingly fast and fully capable of running on relatively
+less performant mobile web containers like webview.
+
+Although browser environment is the primary target for TroopJS runtime, core+ modules are still running perfectly on Node
+with an AMD loader like requireJS, you can imagine TroopJS components running on the server-side with a different
+rendering layer.
+
+## Footprint
+
+The maximal (maxi.js) TroopJS bunde is currently only of **13k** minified + gzipped while you can easily build you
+own bundle with less or more modules.
+
+## Dependencies
+
+There are a couple of wheels that we don't want to reinvent in TroopJS, so we are drawing the minimalist dependencies on
+a few standard compliant, future-proof libraries:
+
+ * [require.js](https://github.com/requirejs)
+ * [when.js](https://github.com/cujojs/when)
+ * [poly](https://github.com/cujojs/poly)
+
+## Status
+
+TroopJS is still a young library despite of the facts that it have already reached v3 and has been adopted by many projects
+in production, it is raised up in [EF Learning Lab](http://labs.ef.com) in Shanghai by [@mikaelkaron](https://github.com/mikaelkaron/),
+[@garryyao](https://github.com/garryyao) and [others](https://github.com/orgs/troopjs/members).
+

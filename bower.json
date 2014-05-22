@@ -1,0 +1,26 @@
+{
+  "name": "troopjs.com",
+  "version": "0.0.0",
+  "authors": [
+    "Garry Yao <yaojun85@gmail.com>"
+  ],
+  "description": "TroopJS website by Assemble",
+  "keywords": [
+    "troopjs",
+    "site",
+    "generator"
+  ],
+  "license": "MIT",
+  "homepage": "http://troopjs.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "main": [
+    "Gruntfile.js"
+  ]
+}

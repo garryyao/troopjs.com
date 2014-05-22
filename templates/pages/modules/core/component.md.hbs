@@ -1,0 +1,62 @@
+---
+area: docs
+section: concepts
+title: Component
+order: 1
+---
+
+> TroopJS is around the component concept, component is the building block that influences your
+> way of thinking about how application is built, application is grown by augmenting with more components.
+
+Components are typically categorized into **two types**, that are either **widgets** that interact with the UI, or
+**services** that works behind the scene for serving requests.
+
+## Component
+
+Components are no more than regular AMD module that exports the `constructor` function to instantiate component object.
+A component is created by **extending** from any existing component in TroopJS, to examplify we're to extend from
+`troopjs-core/component/base` - the very basis ancestor component, passing in a function which serves as the constructor
+(no `new` keyword when creating the component), and one or more **specs** object, whose properties will be mixed into
+the component properties. So far your ever familiarized JavaScript concepts.
+
+{{ gist '252765ac60d9abc850e4'}}
+
+To distinguish with regular JavaScript object, components in TroopJS has **life cycle**, which provides component the flexibility
+to behave differently based on the which **phase** it is currently in, one example is a DOM component that is instantiated
+would neither listen to DOM events nor to render until the component is eventually attached to DOM tree, or even compilcated
+precondition like waiting for data to be loaded.
+
+Since constructor can only create component the synchronous way, an asynchronous procedure of "activating" a component is
+refered in TroopJS as "starting", which is basically specials that transit component phases from "initialize" to
+eventually "started", eventually consider the component activated.
+
+{{ gist '083d0766d8ebbe72e32f'}}
+
+In above example, the special `sig/start` method sends an asynchronous ajax request which yields a promise, which is
+returned to the call of `component#start`, we are telling TroopJS to trigger the component's start phase and wait for the
+completion of the ajax request, eventually the component enters "started" phase.
+
+## Special
+
+The `sig/start` method we used in the above section isn't a regular function, it's the signature of **specials** in TroopJS,
+which are generally event handlers that are not part of component's object property but static functions created on
+the constructor, they're to be invoked when corresponding events are emitted.
+
+Specials prefixed with `sig` are "signals" that are handlers primarily for framework's internal events, like component's
+life-cycle change. Signal's usage are not limited to the framework, it's also suitable for inventing extension points of
+a component that can be optionally handled by the implementation.
+
+{{ gist 'c591a981744562a08492'}}
+
+Special like signals are distinguished from a regular method not only from it's signature, but also the fact that these
+methods when overriding in a hierarchial components tree where multiple specials share the same name, the overrided
+component's special function are always called ahead of the special from the base component.
+
+{{ gist '6946a2cfba2cb6a58969'}}
+
+## Service
+
+Service is component extends from `troopjs-core/component/service` that exist primarily to serve other components's
+hub requests. Servcies are typically started when boostraping the application.
+
+{{ gist 'f2a3435f4107fac979e3'}}

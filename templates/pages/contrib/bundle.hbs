@@ -1,0 +1,138 @@
+---
+area: contrib
+section: development
+title: TroopJS Bundle
+---
+
+> The TroopJS bundle is the deck bearing all rest of modules,
+> which serves various different aspects of development tasks, from creating release files to generating API docs.
+
+TroopJS unlike many other singular libraries, is a highly modularized framework consist of many small, dedicated modules
+that works side-by-side with certain dependencies on each other. The bundle repository instead has no actual functional module,
+but only to glue a selected group of modules together for development and release purpose, thus setup the bundle is the
+initial step of TroopJS development.
+
+## Setup the bundle
+clone the bundle [repository](https://github.com/troopjs/troopjs) first:
+
+```bash
+git clone https://github.com/troopjs/troopjs
+cd troopjs
+```
+To install the list of default modules from bower, only core modules will be included as default
+
+```bash
+bower install
+```
+
+All core modules should now reside in the `bower_components` directory, this install will also include those 3rd libraries
+that individual module relies on.
+
+## Build with Grunt
+
+TroopJS uses [grunt](http://gruntjs.com) as the build system, first make sure grunt and all grunt task plugins are installed via NPM.
+
+```bash
+npm install
+```
+
+Check for available grunt tasks by `grunt --help` which gives you the list of grunt tasks that powers TroopJS, some primary
+ones are explained below:
+
+ * compile - This task takes different profiles (right now `maxi` and `mini`) defined in each a list of included modules,
+to trace individual ones for it's module dependencies, eventually put together the bundled script will all modules by requirejs
+[optimizer](http://requirejs.org/docs/optimization.html). The results bundle uncompressed will be created in `dist` directory.
+ * test - This task is to run every module's tests with the buster runner backed by phantomJS, tests will be run from command
+line in the head-less browser, fails the task in case any of the tests has failed, and to log rest report on standard output.
+ * release - This task is to perform TroopJS release from the current branch, which create TroopJS bundle from the above `compile`
+task, eventually compress it and push the `dist` directory content to an orphan release branch corresponds to the current version.
+ * docs - This task generates and assembles JSDuck API documentation for all modules found within the `bower_components` directory.
+ * version - This task manages TroopJS versioning with Git tag in semver compliant format.
+ * eslint - This task lint for all modules sources found within `bower_components` directory with eslint(http://eslint.org/) rules.
+
+
+## Test with Buster.JS
+
+TroopJS tests are written and run in [Buster.JS](http://docs.busterjs.org/), all tests can be running in any of the following ways:
+
+ - opening web page with either static browser runner that runs tests in a browser
+ - directly through command line with headless browser like phantomJS
+ - simultaneously run tests on all the captured browsers
+
+Run tests with phantomJS is the simpliest way of verying all tests are green, which is available as grunt task `test`,
+if it's your first time of running this command buster and phantomJS will be installed which will take a while.
+
+```bash
+grunt test
+```
+
+Run only specific tests statically in one browser is handy for debugging and trouble shoot test failures, launch `buster-static`
+and point your browser to printed runner URL.
+
+```bash
+buster-static
+Starting server on http://localhost:8282/
+```
+
+You can also specify glob pattern that filters down the tests further and to run only those tests, e.g. the following
+is to run only tests from `troopjs-core` module.
+
+```bash
+buster-static -t "/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js"
+```
+
+To run tests simutaneously with captured browsers you should instead launch `buster-server`, open the runner page with
+your concerned browsers and click for "capture".
+
+```bash
+buster-server
+buster-server running on http://localhost:1111
+```
+
+Then you can run tests from command line like the above with static runner.
+
+```bash
+buster-static -t "/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js"
+```
+
+When adding more tests be aware that all tests shall be within the `test` directory for each module, each subjected component
+shall has a corresponding test suite file of it's own, filename must be suffixed by `-test`, for instance the test suite file
+for `troopjs-browser/component/widget` would be `troopjs-browser/test/component/widget-test`.
+
+If in your tests other dependent scripts are to be required, they have to appear inside the `libs` or `resources`
+section of `test/buster.js` of [buster configuration](http://docs.busterjs.org/en/latest/modules/buster-configuration/)
+to make them available at runtime.
+
+You may want to check individual module source for more details of how does TroopJS buster test case looks like.
+
+## Build profile
+
+Bundle profiles currently `maxi.js` and `mini.js` are preset list of modules to be included in a requirejs
+[optimizer](http://requirejs.org/docs/optimization.html) run, all troopjs modules but not external ones will be bundled
+as a whole, with an extra `troopjs/version` module which indicates exact version of troopjs.
+
+If you're not satisfied with our preset list of modules in bundle, you can easily build you own bundle by modifying
+one of the existing bundle profile then just to rebuild, to examplify we redefine how the `maxi` bundle looks like by
+removing some unused modules from `troopjs-data`, and add some interested widgets from the `troopjs-contrib-browser` package.
+
+```js
+define([
+	"./mini",
+	"troopjs-opt/route/gadget",
+	"troopjs-dom/hash/widget",
+	"troopjs-dom/loom/plugin",
+	"troopjs-contrib-browser/mvc/controller/widget",
+	"troopjs-contrib-browser/data/widget",
+	"troopjs-contrib-browser/cache/widget"
+], function (mini) {
+	return mini;
+});
+```
+
+Before rebuild the bundle, we need to make sure the new `troopjs-contrib-browser` package is properly installed locally.
+
+```
+bower install troopjs-contrib-browser --save-dev
+```
+
+Then to rebuild you bundle with `grunt compile` and we should be able to check the updated list of bundled modules in `dist/build.txt` file.

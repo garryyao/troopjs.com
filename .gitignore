@@ -1,0 +1,13 @@
+# IDE
+.idea
+.project
+.settings
+.externalToolBuilders
+.grunt
+
+# Packages
+node_modules
+bower_components
+
+# Artifacts
+_gh_pages

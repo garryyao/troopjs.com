@@ -1,0 +1,53 @@
+{
+  "name": "troopjs.com",
+  "description": "TroopJS website generated from reusable templates and data by Assemble",
+  "version": "0.0.0",
+  "homepage": "http://troopjs.com",
+  "author": {
+    "name": "Garry Yao",
+    "email": "yaojun85@gmail.com"
+  },
+  "main": "Gruntfile.js",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://troopjs.mit-license.org/"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/troopjs/troopjs.com"
+  },
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "assemble": "~0.4.11",
+    "assemble-less": "~0.5.3",
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-github-api": "~0.2.1",
+    "grunt-newer": "~0.5.1",
+    "grunt-sync-pkg": "~0.1.0",
+    "helper-prettify": "~0.1.3",
+    "highlight.js": "~7.3.0",
+    "js-prettify": "~1.4.0",
+    "lodash": "~1.3.1",
+    "matchdep": "~0.3.0",
+    "permalinks": "~0.1.3",
+    "time-grunt": "~0.1.1",
+    "handlebars-helper-slugify": "~0.2.0",
+    "handlebars-helper-partial": "~0.1.1",
+    "grunt-favicons": "^0.6.4",
+    "grunt-gh-pages": "^0.9.1"
+  },
+  "keywords": [
+    "troopjs",
+    "assemble",
+    "website",
+    "docs",
+    "static"
+  ]
+}

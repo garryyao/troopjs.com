@@ -1,0 +1,208 @@
+---
+title: Installation
+area: docs
+section: getting started
+order: 1
+---
+
+## Install TroopJS bundle
+
+TroopJS bundles are pre-built scripts that has all predefined modules included.
+
+### Download
+
+The easiest way of fetching TroopJS bundle is by using [bower](http://bower.io/), if you haven't installed it yet:
+```shell
+$ (sudo) npm install -g bower
+$ cd $app
+$ bower init
+```
+
+To install TroopJS and all its dependencies from your project dir:
+
+```shell
+$ cd $app
+$ bower install requirejs when poly jquery troopjs#~3.0.0
+```
+
+Otherwise you may want to download the latest release bundle and to extract it in your prefered directory.
+
+```shell
+$ curl -L -O https://api.github.com/repos/troopjs/troopjs/zipball/3.0.0
+$ unzip DOWNLOADED_FILE_NAME.zip
+```
+
+### Load TroopJS on your page
+
+Since TroopJS is all of AMD modules, it's recommended to use [requireJS package](http://requirejs.org/docs/api.html#packages)
+to locate all module dependencies, the following HTML page examplify the configuration:
+
+```js
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>TroopJS App</title>
+  <meta charset="UTF-8">
+  <meta>
+  <script src="bower_components/requirejs/require.js"></script>
+  <script>
+    require.config({
+      baseUrl: 'bower_components',
+      // define package layout for all dependencies.
+      packages: [
+        {
+          name: 'jquery',
+          main: 'dist/jquery.js'
+        },
+        {
+          name: 'poly',
+          main: 'poly.js'
+        },
+        {
+          name: 'requirejs',
+          main: 'require.js'
+        },
+        {
+          name: 'when',
+          main: 'when.js'
+        },
+        {
+          name: 'troopjs',
+          main: 'maxi.js'
+        }
+      ],
+      deps: ['troopjs']
+    });
+  </script>
+</head>
+<body>
+</body>
+</html>
+```
+
+To verify TroopJS bundle modules are actually loaded, issue the following line on the page:
+
+```js
+require('troopjs/version') // 3.0.0 - 1 (the TroopJS bundle version)
+```
+
+
+## Install TroopJS individual modules
+
+Using TroopJS from the bundle might not always be the option in certain senarios:
+ - when you need to debug TroopJS source
+ - when you need to selectly pick modules, even to control what exact module version to use
+ - when you need to install troopjs-contrib-* modules
+ - when you need to bundle troopjs as part of your application code
+
+Since TroopJS is highly modualized and AMD compatible, you can specify individual dependencies in your bower.json file,
+e.g. the following config put restraints over some browser-related troop modules while staying loose with the other
+core+ modules:
+
+```js
+{
+  "name": "app",
+  "version": "0.0.0",
+  "description": "TroopJS app",
+  "dependencies": {
+    "troopjs-compose": "",
+    "troopjs-core": "",
+    "troopjs-log": "",
+    "troopjs-net": "",
+    "troopjs-jquery": "",
+    "troopjs-requirejs": "",
+    "troopjs-dom": "5.1.4",
+    "troopjs-data": "4.0.3",
+    "troopjs-opt": "1.0.3"
+  }
+}
+```
+
+Then issue the `bower install` shall give you all required dependencies installed, including all 3rd-party libraries
+that individual module reles on.
+
+> Note: You may get prompted from bower version conflicts warning if peer dependencies versions are not satisfied,
+> you can resort to the "resolutions" field to resolve [version conflicts](https://github.com/bower/bower/wiki/Rewrite-state)
+
+Now with the same requireJS configuration above, with only a small modification (git grid of the 'troopjs' package definition
+section), the page will load with all TroopJS modules loaded from source with module path resolved as their package location.
+
+```js
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>TroopJS App</title>
+  <meta charset="UTF-8">
+  <meta>
+  <script src="bower_components/requirejs/require.js"></script>
+  <script src="main.js"></script>
+  <script>
+    require.config({
+      baseUrl: 'bower_components',
+      // define AMD package layout for all dependencies.
+      packages: [
+        {
+          name: 'jquery',
+          main: 'dist/jquery.js'
+        },
+        {
+          name: 'poly',
+          main: 'poly.js'
+        },
+        {
+          name: 'requirejs',
+          main: 'require.js'
+        },
+        {
+          name: 'when',
+          main: 'when.js'
+        }
+      ],
+      callback: function () {
+        require(['troopjs-dom/application/widget', 'jquery'], function (app, $) {
+          app($('html')).start();
+        });
+      }
+    });
+  </script>
+</head>
+<body data-weave="app/kickoff">
+</body>
+</html>
+```
+### Yeoman Generator
+
+Install TroopJS the most laziest way is to use [yeoman](http://yeoman.io/) generator which takes care of scaffolding
+and generating the minimal amount of code for an initial state:
+
+```shell
+$ (sudo) npm install -g yo
+$ npm install generator-troopjs
+```
+
+To generate a TroopJS application:
+
+```shell
+$ cd $app
+$ yo troopjs
+```
+
+By answering a few questions, generator gives you a conventional application scaffold where you can start from:
+
+```
+.
+|-- Gruntfile.js
+|-- README.md
+|-- bower.json
+|-- index.html
+|-- main.js
+|-- package.json
+`-- widget
+    |-- README
+    |-- controller.js
+    `-- initialization
+        |-- main.css
+        `-- main.js
+
+2 directories, 10 files
+```

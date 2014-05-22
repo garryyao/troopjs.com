@@ -1,0 +1,11 @@
+###
+# Site variables
+###
+
+production: <%= production %>
+destination: ./_gh_pages
+brand: "Troop.JS"
+text: "TroopJS Website"
+download_link: "https://github.com/troopjs/troopjs/tags"
+api_link: "https://cdn.rawgit.com/troopjs/troopjs/build/3.x/docs/index.html"
+repo_link: "https://github.com/troopjs/troopjs.com"

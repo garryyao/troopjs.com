@@ -1,0 +1,119 @@
+---
+area: docs
+section: concepts
+title: Widget
+order: 3
+---
+
+> The browser module are unobstrusive widgets that "weave in" behaviors on DOM elements, typically reflecting the "V"
+> layer in MVC. Widget delegates all interactions with the underlay DOM element, interfaceing by **hub topics** and **DOM events**.
+> Since widget is ultra lightweight and open-ended thus can easily embrace any data binding or rendering implementation.
+
+## Widget
+
+TroopJS widgets are kind of components created by `dom.component.widget` that is attached to a single DOM element and is
+destroied along with the removal of the DOM element. A jQuery DOM element is referenced by it's `$element` property,
+
+{{ gist '424fe30ce09fc133ec5f'}}
+
+In addition to having a special constructor, DOM widget also specialized in delegating all **DOM events** with the "dom"
+specials, or subscribes to hub topics with the "hub" special, through both ways components can communicatie with each one,
+while depending on different usage senarios, using "dom" or "hub" could be different:
+
+ - If widgets are hierarchically related in DOM tree, DOM events bubbling would be the best choice, but note that DOM
+event can support only synchronous handling senario.
+ - If widgets are structurally irrevelant and requires asyncronous handling, hub events shall be used for widget communication.
+
+The "dom" special signature takes the form of `dom:selector/type`, where selector is an optional CSS selector that matches
+the target element and `type` is just the event type, equivalent to this jQuery event delegation call - `this.$element.on('type', 'selector', handler)`.
+
+The following examplify a simple widget that facilitates both DOM and hub events:
+
+{{ gist 'bd3e81be2aa8b665814c'}}
+
+## Weave
+
+Imperatively draw the relationship between component and DOM element is obviously not the best, which leads to highly
+coupled code with HTML structure, and can easily becomes a maintaince hell.
+**Weave** in terms of TroopJS is defined as the process of instantiating a widget component, starting it's life-circle
+and to associate with an DOM element, TroopJS inverse the control by declaratively map between the component module and
+associate DOM element via a custom HTML attribute `data-weave`, this is coincident with the Web component concept where
+internal presentation and behaviors of the HTML element is completely transparent to outside of the element and can be altered with ease.
+
+### Declarative Weave
+
+declarative weave widgets are created through a custom HTML attribute `data-weave` on any element, where the attribute value
+is string that points to one or more widget's module id. The following HTML code declares a simple widget to weave:
+
+{{ gist '7b91cc179bab0ef27338'}}
+
+Then it's the containing element of the above HTML, that is responsible for weaving in the widgets as soon as:
+
+- The parent element's {@link browser.component.widget#weave} method is called that will weave all children.
+- The HTML is created by the parent element's {@link browser.component.widget#html} method that will weave all children.
+
+### Weaving
+
+By only declaring the widget DOM it's not get instantiated yet, also it's always up to your decision on when to actually
+start weaving them, there exists a few options for you to kick off weaving:
+
+You can weave by just calling the `dom/loom/weave` function, passing the jQuery object as argument:
+
+{{ gist 'd5a763667591ef596ae3'}}
+
+Alternatively TroopJS extends all **loom methods** as jQuery plugins, it is straight forward to weave all elements of a
+jQuery object by simply calling `$.fn.weave()`:
+
+{{ gist 'cb6a1741bf8eccc560d0'}}
+
+Eventually if you're lazy and don't want to be bothered by weaving manually, TroopJS has proxied the following
+jQuery DOM manipulation methods *on widget scope* so whenever you call them TroopJS weaves all the descendants DOM elements afterward:
+
+ - before
+ - after
+ - html
+ - append
+ - prepend
+
+The proxied methods, instead of returning a jQuery chainable, will instead return a promise that is to be resolved with
+all woven widgets:
+
+{{ gist '57519d2befef0ed9a4ae'}}
+
+### Weave multiple widgets
+
+Not only a single widget can be weaved on an element, multiple widgets could be sharing the same element, implements
+different features that eventually composed as layers. The following example that weaves two widgets that plays the submit
+and validation behaviors correspondingly on an element:
+
+{{ gist '1feb5f7de0c591f55636'}}
+
+## Unweave
+
+A DOM widget is considered to be **stopped**, either because it's underlay element has been removed from the DOM tree,
+or becaused you have intentionally called {@link browser.component.widget#unweave} as `$('#foo').unweave();` so it
+**unweaved** living widgets that are found on this element, which will basically cleanup everything before detaching it
+from the DOM element (include data attributes and DOM listeners), if the widget has no other references it will be garbage-collected.
+
+When you unweave, in case you don't always have to unweave all living ones on the element, there's also `data-unweave`
+attribute that TroopJS will check beforehand to **selectively** unweave only a certain widgets, e.g. the following code
+remove only the "validation" widget on element while remains the form submitting widget functional.
+
+{{ gist '74de79f9190e31b6ac65'}}
+
+## Application
+
+There must have to be some bootstraping code that actually call `weave` for DOM elements always,
+TroopJS constructs a special widget `dom/application/widget` for this role - the only guaranteed singular
+application container per page, which takes care of:
+
+ - managing services
+ - weaving initial widgets
+ - route by URI (optional)
+ - handle DOM events bubbling (optional)
+
+Other than regular widget that receives the DOM element as first argument, which could be either `body`, `html` or any
+root element that makes sense for your app, the application constructor should recieve a list of components instances
+in starting order, application will start them in sequence and then to weave all widgets found in DOM tree descendants.
+
+{{ gist 'baf8caafbe4446d77b99'}}
