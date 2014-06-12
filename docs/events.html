@@ -12,6 +12,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/assemble.css">
     <link rel="stylesheet" href="../assets/css/markdown.css">
+    <link rel="stylesheet" href="../assets/css/gist.css">
 
     <!-- Webfonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600,700' rel='stylesheet' type='text/css'>
@@ -105,7 +106,7 @@
                 <a href="index.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Introduction']);">Introduction</a> 
               </li>
               <li>
-                <a href="installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
+                <a href="Installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
               </li>
               <li>
                 <a href="first-app.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Kick Start']);">Kick Start</a> 
@@ -144,36 +145,13 @@
             <p>A standard compliant event system is provided by <code>core/event/emitter</code> component mimic Node.js
               <a href="http://nodejs.org/api/events.html">event emitter API</a>, but to distinguish with most of the common event system, Troop&#39;s events are intrinsically <em>asynchronous<strong>  - it always return
 a </strong> promise*</em> that is resolved when all listeners have resolved, each handler function if returning a promise, depending on the runner (explained later on) could potentially blocks from entering the next handler in queue.</p>
-            <pre><code class="language-js">require([<span class="string">'troopjs-core/component/gadget'</span> ], <span class="function"><span class="keyword">function</span>  <span class="title">MyComponent</span> <span class="params">(Component)</span>  {</span> 
-  <span class="keyword">return</span>  Component.extend({
-    <span class="string">"sig/start"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">(user)</span>  {</span> 
-      <span class="keyword">return</span>  <span class="keyword">this</span>.emit(<span class="string">'login'</span>, user).spread(<span class="function"><span class="keyword">function</span>  <span class="title">afterLogin</span> <span class="params">(msg)</span>  {</span> 
-        console.log(msg);
-      });
-    },
-    <span class="comment">// Handles login request.</span> 
-    <span class="string">"on/login"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">(user)</span>  {</span> 
-      <span class="keyword">return</span>  <span class="keyword">this</span>.auth(user.username, user.passwd).then(<span class="function"><span class="keyword">function</span>  <span class="title">onLoginSuccess</span> <span class="params">()</span>  {</span> 
-        <span class="keyword">return</span>  <span class="string">"welcome:"</span>  + user.username;
-      }).otherwise(<span class="function"><span class="keyword">function</span>  <span class="title">onLoginFailure</span> <span class="params">()</span>  {</span> 
-        <span class="keyword">return</span>  <span class="string">"authentication failed"</span>;
-      });
-    },
-    <span class="string">"auth"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-      <span class="comment">// something async that returns a promise.</span> 
-    }
-  });
-});</code></pre>
+            <script src="https://gist.github.com/c31c7b9ca2e99d086e1f.js"></script>
             <p>As in above example, regular events subscription on component can be written in special like &quot;on/login&quot;, which is equivilent to imperative way of registering an event listener, the scope of the hanlder function will always be the
               component itself:</p>
-            <pre><code class="language-js"><span class="keyword">this</span>.on(<span class="string">'login'</span>, <span class="function"><span class="keyword">function</span>  <span class="title">onLoginRequest</span> <span class="params">()</span> {</span> 
-  console.log(<span class="keyword">this</span>.displayName);
-});</code></pre>
+            <script src="https://gist.github.com/baf3a2b1287cf493f9c6.js"></script>
             <p>Arbitary arguments can be passed when calling <code>emit</code>, which will be always be recevied as <strong>arguments</strong>  in handler function, return value of the <code>emit</code> function is runner (explained later on) dependent, but results
               for each of the listener function will always be an array - even if you returned just a single value from the handler, this allows for multiple values to be returned. So typically they have to be spread over to the callback arguments.</p>
-            <pre><code class="language-js"><span class="keyword">this</span>.emit(<span class="string">'login'</span>, user).spread(<span class="function"><span class="keyword">function</span>  <span class="title">afterLogin</span> <span class="params">(msg)</span>  {</span> 
-  console.log(msg);
-});</code></pre>
+            <script src="https://gist.github.com/baf3a2b1287cf493f9c6.js"></script>
             <p>This type of events are best for internal component calls, or conversation among small group of components that are tightly coupled.</p>
             <h2 id="hub">Hub</h2> 
             <p>Reguar events are not feasible if component has to talk to other components that are <strong>yet unknown</strong>, especially when multiple components have to be involved, typically a publisher/subscriber model.</p>
@@ -183,29 +161,7 @@ a </strong> promise*</em> that is resolved when all listeners have resolved, eac
             <p>To use hub you don&#39;t really have to <code>troopjs-core/pubsub/hub</code>, TroopJS instead create you the delegated <code>publish</code> and <code>subscribe</code>
               methods on <strong>component</strong>  level, which will delegate any publishing/subscription to hub while remains the scope of handler function being the subscriber component.</p>
             <p>By employing hub events, we can easily rewrite the above login authentication sample into two components, one of them as service:</p>
-            <pre><code class="language-js">require([<span class="string">'troopjs-core/component/gadget'</span> ], <span class="function"><span class="keyword">function</span>  <span class="title">MyComponent</span> <span class="params">(Component)</span>  {</span> 
-  <span class="keyword">return</span>  Component.extend({
-    <span class="string">"sig/start"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">(user)</span>  {</span> 
-      <span class="keyword">return</span>  <span class="keyword">this</span>.publish(<span class="string">'login'</span>, user).spread(<span class="function"><span class="keyword">function</span>  <span class="title">afterLogin</span> <span class="params">(msg)</span>  {</span> 
-        console.log(msg);
-      });
-    }
-  });
-});
-require([<span class="string">'troopjs-core/component/service'</span> ], <span class="function"><span class="keyword">function</span>  <span class="title">LoginService</span> <span class="params">(Service)</span>  {</span> 
-  <span class="keyword">return</span>  Service.extend({
-    <span class="string">"hub/login"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">(user)</span>  {</span> 
-      <span class="keyword">return</span>  <span class="keyword">this</span>.auth(user.username, user.passwd).then(<span class="function"><span class="keyword">function</span>  <span class="title">onLoginSuccess</span> <span class="params">()</span>  {</span> 
-        <span class="keyword">return</span>  <span class="string">"welcome:"</span>  + user.username;
-      }).otherwise(<span class="function"><span class="keyword">function</span>  <span class="title">onLoginFailure</span> <span class="params">()</span>  {</span> 
-        <span class="keyword">return</span>  <span class="string">"authentication failed"</span>;
-      });
-    },
-    <span class="string">"auth"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-      <span class="comment">// something async code that return a promise.</span> 
-    }
-  });
-});</code></pre>
+            <script src="https://gist.github.com/4156df60151b2ba7af8c.js"></script>
             <h2 id="event-runner">Event Runner</h2> 
             <p>When there exist hub event that has more than one subscribers involved, TroopJS introduce the concept of <strong>runner</strong>  - an optional argument to the <code>emit</code> method that defines serveral aspects of how handler functions are
               executed:</p>
@@ -217,60 +173,19 @@ require([<span class="string">'troopjs-core/component/service'</span> ], <span c
             <h2 id="sequence">Sequence</h2> 
             <p>Check the below example that does a sequential emitting, where all listeners are to receive the <strong>same value</strong>, and each of return value from handler function is individually collected as an array at the end, regular events and
               signals are running in this way.</p>
-            <pre><code class="language-js"><span class="keyword">this</span>.on(<span class="string">'render'</span>, <span class="function"><span class="keyword">function</span>  <span class="title">listener1</span> <span class="params">(foo)</span>  {</span> 
-  console.assert(foo === <span class="string">'foo'</span> );
-  <span class="keyword">return</span>  <span class="string">'bar'</span>;
-});
-<span class="keyword">this</span>.on(<span class="string">'render'</span>, <span class="function"><span class="keyword">function</span>  <span class="title">listener2</span> <span class="params">(foo)</span>  {</span> 
-  console.assert(foo === <span class="string">'foo'</span> );
-  <span class="keyword">return</span>  <span class="string">'baz'</span>;
-});
-<span class="keyword">var</span>  sequence = require(<span class="string">'troopjs-core/event/runner/sequence'</span> );
-<span class="keyword">this</span>.emit({
-  type: <span class="string">'render'</span>,
-  runner: sequence
-}, <span class="string">'foo'</span> ).then(<span class="function"><span class="keyword">function</span> <span class="params">(results)</span>  {</span> 
-  console.log(results);   <span class="comment">// ['bar', 'baz']</span> 
-});</code></pre>
+            <script src="https://gist.github.com/57b0f5ecff7eec3c2e22.js"></script>
             <h2 id="pipeline">Pipeline</h2> 
             <p>Check the below example that does a pipelined emitting, where one listener is waiting for and to receive the <strong>return values
 from the previous one</strong>  (unless nothing is returned), return value of the last handler function is collected as the return value for emitting, this is the way how <strong>hub event</strong>  subscribers work.</p>
-            <pre><code class="language-js"><span class="keyword">this</span>.on(<span class="string">'hub/login'</span>, <span class="function"><span class="keyword">function</span>  <span class="title">listener1</span> <span class="params">(foo)</span>  {</span> 
-  console.assert(foo === <span class="string">'foo'</span> );
-  <span class="keyword">return</span>  when.resolve([<span class="string">'foo'</span>, <span class="string">'bar'</span> ]);
-});
-<span class="keyword">this</span>.on(<span class="string">'hub/login'</span>, <span class="function"><span class="keyword">function</span>  <span class="title">listener2</span> <span class="params">(foo, bar)</span>  {</span> 
-  console.assert(foo === <span class="string">'foo'</span> );
-  console.assert(bar === <span class="string">'bar'</span> );
-  <span class="keyword">return</span>  when.resolve(<span class="string">'baz'</span> );
-});
-<span class="keyword">var</span>  pipeline = require(<span class="string">'troopjs-core/pubsub/runner/pipeline'</span> );
-<span class="keyword">this</span>.emit({
-  type: <span class="string">'hub/login'</span>,
-  runner: pipeline
-}, <span class="string">'foo'</span> ).then(<span class="function"><span class="keyword">function</span> <span class="params">(results)</span>  {</span> 
-  console.log(results);   <span class="comment">// ['baz']</span> 
-});</code></pre>
+            <script src="https://gist.github.com/58323d08fceaaca82604.js"></script>
             <h2 id="synchronous-sequence">Synchronous Sequence</h2> 
             <p>Check the below example that does synchronous sequencial emitting, it works in similiar with the sequential runner excepts that all listeners are running in a <strong>loop without blocking</strong>  each other, disregard whether a promise is
               returned from the handler function, a few special signals (like &#39;setup/teardown/add/remove&#39; are intentionally run in this way to avoid breaking synchronous call stack.</p>
-            <pre><code class="language-js"><span class="keyword">var</span>  timestamp;
-<span class="keyword">this</span>.on(<span class="string">'sig/setup'</span>, <span class="function"><span class="keyword">function</span>  <span class="title">listener</span> <span class="params">()</span>  {</span> 
-  timestamp = <span class="keyword">new</span>  Date();
-});
-<span class="keyword">var</span>  sync_sequence = require(<span class="string">'troopjs-core/component/runner/seqence'</span> );
-<span class="keyword">this</span>.emit({
-  type: <span class="string">'sig/setup'</span>,
-  runner: sync_sequence
-});
-<span class="comment">// handler is executed synchronously</span> 
-console.assert(Date.now() &gt; timestamp);</code></pre>
+            <script src="https://gist.github.com/ae3e4338820e8b7d15f8.js"></script>
             <h2 id="custom-runner">Custom Runner</h2> 
             <p>The above used TroopJS event runners are built-in ones, while it is extremely easy for you to define a simple function that takes the <strong>event name</strong>  and <strong>handler candidates</strong>  as arguments and to return a promised value
               that is the return value of the <code>emit</code> function, internally what/how the handlers are executed are completely up to you.</p>
-            <pre><code class="language-js"><span class="function"><span class="keyword">function</span>  <span class="title">custom_event_runner</span> <span class="params">(event, handlers, args)</span>  {</span> 
-  <span class="comment">// process the handlers your own way.</span> 
-}</code></pre>
+            <script src="https://gist.github.com/d020337a618391ae084c.js"></script>
             <p>TroopJS specials are thus extremely extensible utilizing a new runner, for instance &#39;opt/route/gardget&#39; component adds two specials - &#39;route/change&#39; and &#39;route/add&#39; by implementing a runner that hanle these two events,
               and only to call the listener when a route pattern specified in the special signature, like <code>route/change/:foo/(:bar)?</code> actually matches the URI, check <code>troopjs-opt</code> package for more details.</p>
             <hr>

@@ -12,6 +12,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/assemble.css">
     <link rel="stylesheet" href="../assets/css/markdown.css">
+    <link rel="stylesheet" href="../assets/css/gist.css">
 
     <!-- Webfonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600,700' rel='stylesheet' type='text/css'>
@@ -105,7 +106,7 @@
                 <a href="index.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Introduction']);">Introduction</a> 
               </li>
               <li>
-                <a href="installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
+                <a href="Installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
               </li>
               <li>
                 <a href="first-app.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Kick Start']);">Kick Start</a> 
@@ -142,64 +143,11 @@
             <h2 id="extend">Extend</h2> 
             <p>The factory assists in composing both constructors or instances, by consuming a <strong>specification</strong> 
               object, by mixing in all properties found in object onto the original and return a new constructor.</p>
-            <pre><code class="language-js"><span class="keyword">var</span>  Component = Factory({
-  <span class="string">"start"</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span> }
-});
-<span class="keyword">var</span>  Widget = Component.extend({
-  <span class="string">"render"</span>: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span> }
-});
-<span class="keyword">var</span>  foo = Widget.create({
-  <span class="string">"displayName"</span>: <span class="string">"foo"</span> 
-});</code></pre>
+            <script src="https://gist.github.com/928caf126ff7f3152bab.js"></script>
             <h2 id="composite">Composite</h2> 
             <p>Factory can be quite flexiable, one or more <strong>specs</strong>  or <strong>constructors</strong>  can be passed as arguments, ordered from left to right, with the ones comes later taken precedence (overriding) over the former.
             </p>
-            <pre><code class="language-js"><span class="comment">// Define the constructor.</span> 
-<span class="keyword">var</span>  MyClass = Factory(<span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-  <span class="comment">// initialize the object...</span> 
-  <span class="keyword">this</span>.baz = <span class="string">"quz"</span>;
-},
-{
-  foo: <span class="string">"bar"</span>,
-  <span class="keyword">do</span>: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-    <span class="keyword">return</span>  <span class="string">"work"</span>;
-  },
-  <span class="comment">// a special handler for "signal" type with value "foo".</span> 
-  <span class="string">"signal/foo"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-  }
-});
-<span class="keyword">var</span>  MyBehavior = Factory({
-  somethingElse: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-  }
-});
-<span class="comment">// SubClass extends from MyClass and mixin MyBehavior</span> 
-<span class="keyword">var</span>  SubClass = MyClass.extend(<span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-  <span class="comment">// initialize the object...</span> 
-},
-MyBehavior,
-{
-  <span class="comment">// Overwrite parent.</span> 
-  foo: <span class="string">"baz"</span>,
-  <span class="comment">// Override parent with after call.</span> 
-  <span class="keyword">do</span>: Factory.after(<span class="function"><span class="keyword">function</span>  <span class="params">(retval)</span>  {</span> 
-    <span class="keyword">return</span>  retval + <span class="string">","</span>  + <span class="string">"play"</span>;
-  }),
-  move: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-  }
-});
-<span class="comment">// Instantiate the subClass.</span> 
-<span class="keyword">var</span>  instance = SubClass.create({
-  evenMore: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-  }
-});
-<span class="comment">// "baz"</span> 
-instance.foo;
-<span class="comment">// "quz"</span> 
-instance.baz;
-<span class="comment">// "work play"</span> 
-instance.<span class="keyword">do</span> ();
-instance.somethingElse();
-instance.evenMore();</code></pre>
+            <script src="https://gist.github.com/1b1920aca7d4817cf228.js"></script>
             <p>Besides of regular object composition feature, the factory also introduces a few necessary features for building TroopJS component:
             </p>
             <ul>

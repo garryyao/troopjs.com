@@ -12,6 +12,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/assemble.css">
     <link rel="stylesheet" href="../assets/css/markdown.css">
+    <link rel="stylesheet" href="../assets/css/gist.css">
 
     <!-- Webfonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600,700' rel='stylesheet' type='text/css'>
@@ -105,7 +106,7 @@
                 <a href="index.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Introduction']);">Introduction</a> 
               </li>
               <li>
-                <a href="installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
+                <a href="Installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
               </li>
               <li>
                 <a href="first-app.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Kick Start']);">Kick Start</a> 
@@ -145,46 +146,12 @@
               to extend from
               <code>troopjs-core/component/base</code> - the very basis ancestor component, passing in a function which serves as the constructor (no <code>new</code> keyword when creating the component), and one or more <strong>specs</strong>  object, whose
               properties will be mixed into the component properties. So far your ever familiarized JavaScript concepts.</p>
-            <pre><code class="language-js">define(<span class="string">'child'</span>, [<span class="string">'troopjs-core/component/base'</span> ], <span class="function"><span class="keyword">function</span>  <span class="title">ChildModule</span> <span class="params">(Component)</span>  {</span> 
-    <span class="keyword">return</span>  Component.extend(<span class="function"><span class="keyword">function</span>  <span class="title">ChildComponent</span> <span class="params">(name)</span>  {</span> 
-            <span class="keyword">this</span>.name = name;
-        },
-        {
-            <span class="string">"walk"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-                <span class="comment">// walk this child.</span> 
-            }
-        });
-});
-<span class="keyword">var</span>  child = require(<span class="string">'child'</span> );
-child(<span class="string">'John'</span> );</code></pre>
+            <script src="https://gist.github.com/252765ac60d9abc850e4.js"></script>
             <p>To distinguish with regular JavaScript object, components in TroopJS has <strong>life cycle</strong>, which provides component the flexibility to behave differently based on the which <strong>phase</strong>  it is currently in, one example is
               a DOM component that is instantiated would neither listen to DOM events nor to render until the component is eventually attached to DOM tree, or even compilcated precondition like waiting for data to be loaded.</p>
             <p>Since constructor can only create component the synchronous way, an asynchronous procedure of &quot;activating&quot; a component is refered in TroopJS as &quot;starting&quot;, which is basically specials that transit component phases from
               &quot;initialize&quot; to eventually &quot;started&quot;, eventually consider the component activated.</p>
-            <pre><code class="language-js">define(<span class="string">'child'</span>, [<span class="string">'troopjs-core/component/base'</span>, <span class="string">'jquery'</span> ], <span class="function"><span class="keyword">function</span>  <span class="title">ChildModule</span> <span class="params">(Component, $)</span>  {</span> 
-    <span class="keyword">return</span>  Component.extend(<span class="function"><span class="keyword">function</span>  <span class="title">ChildComponent</span> <span class="params">(name)</span>  {</span> 
-            <span class="keyword">this</span>.name = name;
-        },
-        {
-            <span class="string">"sig/start"</span>: <span class="function"><span class="keyword">function</span>  <span class="title">startSignal</span> <span class="params">(time)</span>  {</span> 
-                <span class="keyword">var</span>  me = <span class="keyword">this</span>;
-                <span class="keyword">return</span>  $.ajax({
-                    url: <span class="string">"give-birth"</span>,
-                    data: {
-                        name: me.name,
-                        birth: time
-                    }
-                });
-            }
-        });
-});
-<span class="comment">// Instantiate the child by naming him.</span> 
-<span class="keyword">var</span>  child = require(<span class="string">'child'</span> )(<span class="string">'John'</span> );
-<span class="comment">// Give birth to the child.</span> 
-child.start(Date.now()).then(<span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-    console.log(child.phase);    <span class="comment">// started</span> 
-});
-console.log(child.phase);    <span class="comment">// initialize</span> </code></pre>
+            <script src="https://gist.github.com/083d0766d8ebbe72e32f.js"></script>
             <p>In above example, the special <code>sig/start</code> method sends an asynchronous ajax request which yields a promise, which is returned to the call of <code>component#start</code>, we are telling TroopJS to trigger the component&#39;s start
               phase and wait for the completion of the ajax request, eventually the component enters &quot;started&quot; phase.</p>
             <h2 id="special">Special</h2> 
@@ -192,56 +159,13 @@ console.log(child.phase);    <span class="comment">// initialize</span> </code><
               but static functions created on the constructor, they&#39;re to be invoked when corresponding events are emitted.</p>
             <p>Specials prefixed with <code>sig</code> are &quot;signals&quot; that are handlers primarily for framework&#39;s internal events, like component&#39;s life-cycle change. Signal&#39;s usage are not limited to the framework, it&#39;s also suitable
               for inventing extension points of a component that can be optionally handled by the implementation.</p>
-            <pre><code class="language-js">define(<span class="string">'foo'</span>, [<span class="string">'troopjs-core/component/gadget'</span> ], <span class="function"><span class="keyword">function</span>  <span class="title">FooModule</span> <span class="params">(Component)</span>  {</span> 
-    <span class="keyword">return</span>  Component.extend({
-            <span class="string">"sig/render"</span>: <span class="function"><span class="keyword">function</span> <span class="params">(data)</span>  {</span> 
-                console.log(data);    <span class="comment">// {title: "Foo"}</span> 
-            }
-        });
-});
-<span class="keyword">var</span>  foo = Foo();
-foo.start().then(<span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-  foo.signal(<span class="string">"render"</span>, {title: <span class="string">"Foo"</span> });
-});</code></pre>
+            <script src="https://gist.github.com/c591a981744562a08492.js"></script>
             <p>Special like signals are distinguished from a regular method not only from it&#39;s signature, but also the fact that these methods when overriding in a hierarchial components tree where multiple specials share the same name, the overrided
               component&#39;s special function are always called ahead of the special from the base component.</p>
-            <pre><code class="language-js">define(<span class="string">'foo'</span>, [<span class="string">'troopjs-core/component/gadget'</span> ], <span class="function"><span class="keyword">function</span>  <span class="title">FooModule</span> <span class="params">(Component)</span>  {</span> 
-    <span class="keyword">return</span>  Component.extend({
-        <span class="string">"sig/render"</span>: <span class="function"><span class="keyword">function</span> <span class="params">(data)</span>  {</span> 
-            console.log(<span class="string">"ancestor foo"</span> );
-        }
-    });
-});
-define(<span class="string">'bar'</span>, [<span class="string">'foo'</span> ], <span class="function"><span class="keyword">function</span>  <span class="title">FooModule</span> <span class="params">(Foo)</span>  {</span> 
-  <span class="keyword">return</span>  Foo.extend({
-    <span class="string">"sig/render"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">(data)</span>  {</span> 
-      console.log(<span class="string">"child bar"</span> );
-    }
-  });
-});
-<span class="keyword">var</span>  bar = Bar();
-bar.start().then(<span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-  bar.signal(<span class="string">"render"</span> ); <span class="comment">// "child bar" "ancestor foo"</span> 
-});</code></pre>
+            <script src="https://gist.github.com/6946a2cfba2cb6a58969.js"></script>
             <h2 id="service">Service</h2> 
             <p>Service is component extends from <code>troopjs-core/component/service</code> that exist primarily to serve other components&#39;s hub requests. Servcies are typically started when boostraping the application.</p>
-            <pre><code class="language-js">require([
-    <span class="string">'troopjs-dom/application/widget'</span>,
-    <span class="string">'troopjs-net/ajax/service'</span>,
-    <span class="string">'troopjs-data/query/service'</span>,
-    <span class="string">'troopjs-data/cache/component'</span> 
-], <span class="function"><span class="keyword">function</span>  <span class="params">(Application, AjaxService, QueryService, Cache)</span>  {</span> 
-    <span class="comment">// Start the services on application bootstrap.</span> 
-    Application(
-        $(<span class="string">'html'</span> ),
-        <span class="string">'application'</span>,
-        AjaxService(),
-        QueryService(Cache()),
-        MyCustomComponent
-    ).start().then(<span class="function"><span class="keyword">function</span>  <span class="title">onAppStarted</span> <span class="params">()</span>  {</span> 
-        <span class="comment">// query service is now available.</span> 
-    });
-});</code></pre>
+            <script src="https://gist.github.com/f2a3435f4107fac979e3.js"></script>
             <hr>
             <div class="alert">
               <p>Find an error?

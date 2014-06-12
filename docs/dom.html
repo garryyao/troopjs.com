@@ -12,6 +12,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="../assets/css/assemble.css">
     <link rel="stylesheet" href="../assets/css/markdown.css">
+    <link rel="stylesheet" href="../assets/css/gist.css">
 
     <!-- Webfonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600,700' rel='stylesheet' type='text/css'>
@@ -105,7 +106,7 @@
                 <a href="index.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Introduction']);">Introduction</a> 
               </li>
               <li>
-                <a href="installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
+                <a href="Installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
               </li>
               <li>
                 <a href="first-app.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Kick Start']);">Kick Start</a> 
@@ -141,19 +142,7 @@
             </blockquote>
             <h2 id="widget">Widget</h2> 
             <p>TroopJS widgets are kind of components created by <code>dom.component.widget</code> that is attached to a single DOM element and is destroied along with the removal of the DOM element. A jQuery DOM element is referenced by it&#39;s <code>$element</code> property,</p>
-            <pre><code class="language-js">define(&#39;button&#39;, [&#39;troopjs-dom/component/widget&#39;], function ButtonModule(Widget){
-    return Widget.extend(function Button() {
-        console.log(arguments);    // [HTMLButtonElement, &#39;my-button&#39;]
-    },
-    {
-        &quot;sig/start&quot;: function() {
-            console.log(this.$element);    // HTMLButtonElement
-        }
-    });
-});
-var Button = require(&#39;button&#39;);
-var btn = Button($(&#39;button#my-button&#39;), &#39;my-button);
-btn.start();</code></pre>
+            <script src="https://gist.github.com/424fe30ce09fc133ec5f.js"></script>
             <p>In addition to having a special constructor, DOM widget also specialized in delegating all <strong>DOM events</strong>  with the &quot;dom&quot; specials, or subscribes to hub topics with the &quot;hub&quot; special, through both ways components
               can communicatie with each one, while depending on different usage senarios, using &quot;dom&quot; or &quot;hub&quot; could be different:</p>
             <ul>
@@ -163,20 +152,7 @@ btn.start();</code></pre>
             <p>The &quot;dom&quot; special signature takes the form of <code>dom:selector/type</code>, where selector is an optional CSS selector that matches the target element and <code>type</code> is just the event type, equivalent to this jQuery event delegation
               call - <code>this.$element.on(&#39;type&#39;, &#39;selector&#39;, handler)</code>.</p>
             <p>The following examplify a simple widget that facilitates both DOM and hub events:</p>
-            <pre><code class="language-js">define(<span class="string">'my-app/widget/inc'</span>, [<span class="string">'troopjs-dom/component/widget'</span> ], <span class="function"><span class="keyword">function</span>  <span class="title">IncWidget</span> <span class="params">(Widget)</span>  {</span> 
-  <span class="keyword">return</span>  Widget.extend(<span class="function"><span class="keyword">function</span>  <span class="params">($element, name)</span>  {</span> 
-      console.log(<span class="string">"started widget %s on element %o"</span>, name, $element);
-    },
-    {
-      <span class="string">"hub/input"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">(num)</span>  {</span> 
-        <span class="keyword">this</span>.$element.html(<span class="string">'&lt; button class = "inc" &gt; '</span>  + num + <span class="string">'&lt;/button&gt;'</span> );
-      },
-      <span class="string">"dom:.inc/click"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-        <span class="keyword">var</span>  num = <span class="keyword">this</span>.$element.text();
-        <span class="keyword">this</span>.publish(<span class="string">'hub/output'</span>, num + <span class="number">1</span> );
-      }
-    });
-});</code></pre>
+            <script src="https://gist.github.com/bd3e81be2aa8b665814c.js"></script>
             <h2 id="weave">Weave</h2> 
             <p>Imperatively draw the relationship between component and DOM element is obviously not the best, which leads to highly coupled code with HTML structure, and can easily becomes a maintaince hell.
               <strong>Weave</strong>  in terms of TroopJS is defined as the process of instantiating a widget component, starting it&#39;s life-circle and to associate with an DOM element, TroopJS inverse the control by declaratively map between the component
@@ -185,7 +161,7 @@ btn.start();</code></pre>
             <h3 id="declarative-weave">Declarative Weave</h3> 
             <p>declarative weave widgets are created through a custom HTML attribute <code>data-weave</code> on any element, where the attribute value is string that points to one or more widget&#39;s module id. The following HTML code declares a simple widget
               to weave:</p>
-            <pre><code class="language-html">&lt;div id=&quot;foo&quot; data-weave=&quot;my-app/widget/inc&quot;&gt;&lt;/div&gt;</code></pre>
+            <script src="https://gist.github.com/7b91cc179bab0ef27338.js"></script>
             <p>Then it&#39;s the containing element of the above HTML, that is responsible for weaving in the widgets as soon as:</p>
             <ul>
               <li>The parent element&#39;s {@link browser.component.widget#weave} method is called that will weave all children.</li>
@@ -194,17 +170,9 @@ btn.start();</code></pre>
             <h3 id="weaving">Weaving</h3> 
             <p>By only declaring the widget DOM it&#39;s not get instantiated yet, also it&#39;s always up to your decision on when to actually start weaving them, there exists a few options for you to kick off weaving:</p>
             <p>You can weave by just calling the <code>dom/loom/weave</code> function, passing the jQuery object as argument:</p>
-            <pre><code class="language-js">require(<span class="string">'troopjs-dom/loom/weave'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(weave)</span>  {</span> 
-  weave.call($(<span class="string">'#foo'</span> ), <span class="string">'other arguments that are passed to #start'</span> ).then(<span class="function"><span class="keyword">function</span>  <span class="title">onWeaved</span> <span class="params">(widgets)</span>  {</span> 
-    <span class="comment">// the woven widget received.</span> 
-    console.log(widgets[<span class="number">0</span> ]);
-  });
-});</code></pre>
+            <script src="https://gist.github.com/d5a763667591ef596ae3.js"></script>
             <p>Alternatively TroopJS extends all <strong>loom methods</strong>  as jQuery plugins, it is straight forward to weave all elements of a jQuery object by simply calling <code>$.fn.weave()</code>:</p>
-            <pre><code class="language-js">$(<span class="string">'#foo'</span> ).weave().then(<span class="function"><span class="keyword">function</span>  <span class="title">onWeaved</span> <span class="params">(widgets)</span>  {</span> 
-    <span class="comment">// the woven widget received.</span> 
-    console.log(widgets[<span class="number">0</span> ]);
-  });</code></pre>
+            <script src="https://gist.github.com/cb6a1741bf8eccc560d0.js"></script>
             <p>Eventually if you&#39;re lazy and don&#39;t want to be bothered by weaving manually, TroopJS has proxied the following jQuery DOM manipulation methods <em>on widget scope</em> so whenever you call them TroopJS weaves all the descendants DOM
               elements afterward:</p>
             <ul>
@@ -215,29 +183,19 @@ btn.start();</code></pre>
               <li>prepend</li>
             </ul>
             <p>The proxied methods, instead of returning a jQuery chainable, will instead return a promise that is to be resolved with all woven widgets:</p>
-            <pre><code class="language-js">require([<span class="string">'troopjs-dom/component/widget'</span> ], <span class="function"><span class="keyword">function</span>  <span class="title">MyWidget</span> <span class="params">(Widget)</span>  {</span> 
-  <span class="keyword">return</span>  Widget.extend({
-    <span class="string">"sig/start"</span>: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-      <span class="keyword">this</span>.html(<span class="string">'&lt;div id="foo" data-weave="my-app/widget/inc"&gt;&lt;/div&gt;'</span> ).spread(<span class="function"><span class="keyword">function</span>  <span class="title">onWeaved</span> <span class="params">(widgets)</span>  {</span> 
-        <span class="comment">// the woven widget received.</span> 
-        console.log(widgets[<span class="number">0</span> ]);
-      });
-    }
-  });
-});</code></pre>
+            <script src="https://gist.github.com/57519d2befef0ed9a4ae.js"></script>
             <h3 id="weave-multiple-widgets">Weave multiple widgets</h3> 
             <p>Not only a single widget can be weaved on an element, multiple widgets could be sharing the same element, implements different features that eventually composed as layers. The following example that weaves two widgets that plays the submit
               and validation behaviors correspondingly on an element:</p>
-            <pre><code class="language-html">&lt;form id=&quot;foo&quot; data-weave=&quot;my-app/widget/submit,my-app/widget/validation&quot;&gt;&lt;/form&gt;</code></pre>
-            <pre><code class="language-js">$(<span class="string">'#foo'</span> ).weave();</code></pre>
+            <script src="https://gist.github.com/1feb5f7de0c591f55636.js"></script>
             <h2 id="unweave">Unweave</h2> 
-            <p>A DOM widget is considered to be <strong>stopped</strong>, either because it&#39;s underlay element has been removed from the DOM tree, or becaused you have intentionally called {@link browser.component.widget#unweave} so it <strong>unweaved</strong>  living
-              widgets that are found on this element, which will basically cleanup everything before detaching it from the DOM element (include data attributes and DOM listeners), if the widget has no other references it will be garbage-collected.</p>
-            <pre><code>$(&#39;#foo&#39;).unweave();</code></pre>
+            <p>A DOM widget is considered to be <strong>stopped</strong>, either because it&#39;s underlay element has been removed from the DOM tree, or becaused you have intentionally called {@link browser.component.widget#unweave} as <code>$(&#39;#foo&#39;).unweave();</code> so
+              it
+              <strong>unweaved</strong>  living widgets that are found on this element, which will basically cleanup everything before detaching it from the DOM element (include data attributes and DOM listeners), if the widget has no other references it
+              will be garbage-collected.</p>
             <p>When you unweave, in case you don&#39;t always have to unweave all living ones on the element, there&#39;s also <code>data-unweave</code>
               attribute that TroopJS will check beforehand to <strong>selectively</strong>  unweave only a certain widgets, e.g. the following code remove only the &quot;validation&quot; widget on element while remains the form submitting widget functional.</p>
-            <pre><code>&lt;form id=&quot;foo&quot; data-weave=&quot;my-app/widget/submit,my-app/widget/validation&quot;&gt;&lt;/form&gt;</code></pre>
-            <pre><code>$(&#39;#foo&#39;).attr(&#39;data-unweave&#39;, &#39;my-app/widget/validation&#39;).unweave();</code></pre>
+            <script src="https://gist.github.com/74de79f9190e31b6ac65.js"></script>
             <h2 id="application">Application</h2> 
             <p>There must have to be some bootstraping code that actually call <code>weave</code> for DOM elements always, TroopJS constructs a special widget <code>dom/application/widget</code> for this role - the only guaranteed singular application container
               per page, which takes care of:</p>
@@ -249,31 +207,7 @@ btn.start();</code></pre>
             </ul>
             <p>Other than regular widget that receives the DOM element as first argument, which could be either <code>body</code>, <code>html</code> or any root element that makes sense for your app, the application constructor should recieve a list of components
               instances in starting order, application will start them in sequence and then to weave all widgets found in DOM tree descendants.</p>
-            <pre><code class="language-js">require([
-  <span class="string">'troopjs-dom/application/widget'</span>,
-  <span class="string">'troopjs-net/ajax/service'</span>,
-  <span class="string">'troopjs-data/query/service'</span>,
-  <span class="string">'troopjs-data/cache/component'</span> 
-  <span class="string">'app/my/custom/component'</span> 
-], <span class="function"><span class="keyword">function</span>  <span class="params">(Application, AjaxService, QueryService, Cache, MyCustomComponent)</span>  {</span> 
-  <span class="comment">// Start the services then weave the elements</span> 
-  <span class="keyword">var</span>  app = Application(
-    $(<span class="string">'html'</span> ),
-    <span class="string">'bootstrap'</span>,
-    AjaxService(),
-    QueryService(Cache()),
-    MyCustomComponent
-  );
-  app.start().then(<span class="function"><span class="keyword">function</span>  <span class="title">onAppStarted</span> <span class="params">()</span>  {</span> 
-    <span class="comment">// query for all woven widgets across the application.</span> 
-    app.$element.find(<span class="string">":woven"</span> ).woven().then(<span class="function"><span class="keyword">function</span>  <span class="title">onWidgets</span> <span class="params">(widgets)</span>  {</span> 
-      <span class="keyword">var</span>  num = widgets.reduce(<span class="function"><span class="keyword">function</span>  <span class="params">(num, widgets)</span>  {</span> 
-        <span class="keyword">return</span>  num + widgets.length;
-      }, <span class="number">0</span> );
-      console.log(<span class="string">'application started with %s widgets'</span>, num);
-    });
-  });
-});</code></pre>
+            <script src="https://gist.github.com/baf8caafbe4446d77b99.js"></script>
             <hr>
             <div class="alert">
               <p>Find an error?
