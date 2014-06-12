@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=" TroopJS website generated from reusable templates and data by Assemble">
+    <title>
+      Installation | TroopJS
+    </title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/assemble.css">
+    <link rel="stylesheet" href="../assets/css/markdown.css">
+
+    <!-- Webfonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!--[if lt IE 9]>
+  <script src="../assets/js/html5shiv.js"></script>
+  <script src="../assets/js/respond/respond.min.js"></script>
+<![endif]-->
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" type="image/png" href="../assets/img/favicon.png">
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      var pluginUrl =
+        '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+      _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+      _gaq.push(['_setAccount', 'UA-33358518-5']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+  <body style="background: white;" data-spy="scroll" data-target=".bs-sidebar">
+    <div class="navbar" role="banner">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span> 
+          </button>
+          <a href="../docs/" class="navbar-brand" style="background: url(../assets/img/brand.png) transparent no-repeat;">
+            Troop.JS
+          </a> 
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="../docs/">Docs</a> 
+            </li>
+            <li>
+              <a href="../contrib/">Contrib</a> 
+            </li>
+            <li>
+              <a href="https://cdn.rawgit.com/troopjs/troopjs/build/3.x/docs/index.html" title="TroopJS 3.x API Docs" target="_blank">API</a> 
+            </li>
+          </ul>
+          <ul class="nav navbar-nav pull-right">
+            <li>
+              <a href="javascript:void(0)" onclick="_gaq.push(['_trackEvent', 'click-repo', 'clicked'])">
+                <iframe src="http://ghbtns.com/github-btn.html?user=troopjs&repo=troopjs&type=watch&count=true&size=large" frameborder="0" scrolling="0" style="width:120px; height: 30px;" allowTransparency="true"></iframe>
+              </a> 
+            </li>
+            <li>
+              <a href="https://github.com/troopjs/troopjs/tags" title="Download TroopJS" target="_blank" onclick="_gaq.push(['_trackEvent', 'navbar-download', 'clicked'])">
+                <i class="glyphicon glypicon-large glyphicon-download"></i>
+              </a> 
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <header class="masthead subhead">
+      <div class="container">
+        <div class="row">
+          <div class="col col-lg-12">
+            <h1>
+              <span class="text-muted">Docs /&nbsp;</span> getting started
+            </h1> 
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col col-lg-3">
+          <div class="sidebar">
+            <span class="nav-section-title">
+              Getting Started
+            </span> 
+            <ul class="nav nav-pills nav-stacked">
+              <li>
+                <a href="index.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Introduction']);">Introduction</a> 
+              </li>
+              <li class="active">
+                <a href="installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
+              </li>
+              <li>
+                <a href="first-app.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Kick Start']);">Kick Start</a> 
+              </li>
+            </ul>
+            <span class="nav-section-title">
+              Core Concepts
+            </span> 
+            <ul class="nav nav-pills nav-stacked">
+              <li>
+                <a href="compose.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Compose']);">Compose</a> 
+              </li>
+              <li>
+                <a href="component.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Component']);">Component</a> 
+              </li>
+              <li>
+                <a href="events.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Events']);">Events</a> 
+              </li>
+              <li>
+                <a href="dom.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Widget']);">Widget</a> 
+              </li>
+              <li>
+                <a href="data.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Data']);">Data</a> 
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col col-lg-9">
+          <div class="panel panel-docs">
+            <h2 id="install-troopjs-bundle">Install TroopJS bundle</h2> 
+            <p>TroopJS bundles are pre-built scripts that has all predefined modules included.</p>
+            <h3 id="download">Download</h3> 
+            <p>The easiest way of fetching TroopJS bundle is by using
+              <a href="http://bower.io/">bower</a>, if you haven&#39;t installed it yet:</p>
+            <pre><code class="language-shell">$ (sudo) npm install -g bower
+$ cd $app
+$ bower init</code></pre>
+            <p>To install TroopJS and all its dependencies from your project dir:</p>
+            <pre><code class="language-shell">$ cd $app
+$ bower install requirejs when poly jquery troopjs#~3.0.0</code></pre>
+            <p>Otherwise you may want to download the latest release bundle and to extract it in your prefered directory.</p>
+            <pre><code class="language-shell">$ curl -L -O https://api.github.com/repos/troopjs/troopjs/zipball/3.0.0
+$ unzip DOWNLOADED_FILE_NAME.zip</code></pre>
+            <h3 id="load-troopjs-on-your-page">Load TroopJS on your page</h3> 
+            <p>Since TroopJS is all of AMD modules, it&#39;s recommended to use
+              <a href="http://requirejs.org/docs/api.html#packages">requireJS package</a> 
+              to locate all module dependencies, the following HTML page examplify the configuration:</p>
+            <pre><code class="language-js">&lt;!DOCTYPE HTML&gt;
+<span class="xml"><span class="tag">&lt;<span class="title">html</span> &gt;</span> 
+<span class="tag">&lt;<span class="title">head</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">title</span> &gt;</span> TroopJS App<span class="tag">&lt;/<span class="title">title</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">meta</span>  <span class="attribute">charset</span> =<span class="value">"UTF-8"</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">meta</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">script</span>  <span class="attribute">src</span> =<span class="value">"bower_components/requirejs/require.js"</span> &gt;</span> <span class="javascript"></span> <span class="tag">&lt;/<span class="title">script</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">script</span> &gt;</span> <span class="javascript">
+    require.config({
+      baseUrl: <span class="string">'bower_components'</span>,
+      <span class="comment">// define package layout for all dependencies.</span> 
+      packages: [
+        {
+          name: <span class="string">'jquery'</span>,
+          main: <span class="string">'dist/jquery.js'</span> 
+        },
+        {
+          name: <span class="string">'poly'</span>,
+          main: <span class="string">'poly.js'</span> 
+        },
+        {
+          name: <span class="string">'requirejs'</span>,
+          main: <span class="string">'require.js'</span> 
+        },
+        {
+          name: <span class="string">'when'</span>,
+          main: <span class="string">'when.js'</span> 
+        },
+        {
+          name: <span class="string">'troopjs'</span>,
+          main: <span class="string">'maxi.js'</span> 
+        }
+      ],
+      deps: [<span class="string">'troopjs'</span> ]
+    });
+  </span> <span class="tag">&lt;/<span class="title">script</span> &gt;</span> 
+<span class="tag">&lt;/<span class="title">head</span> &gt;</span> 
+<span class="tag">&lt;<span class="title">body</span> &gt;</span> 
+<span class="tag">&lt;/<span class="title">body</span> &gt;</span> 
+<span class="tag">&lt;/<span class="title">html</span> &gt;</span> </span> </code></pre>
+            <p>To verify TroopJS bundle modules are actually loaded, issue the following line on the page:</p>
+            <pre><code class="language-js">require(<span class="string">'troopjs/version'</span> ) <span class="comment">// 3.0.0 - 1 (the TroopJS bundle version)</span> </code></pre>
+            <h2 id="install-troopjs-individual-modules">Install TroopJS individual modules</h2> 
+            <p>Using TroopJS from the bundle might not always be the option in certain senarios:</p>
+            <ul>
+              <li>when you need to debug TroopJS source</li>
+              <li>when you need to selectly pick modules, even to control what exact module version to use</li>
+              <li>when you need to install troopjs-contrib-* modules</li>
+              <li>when you need to bundle troopjs as part of your application code</li>
+            </ul>
+            <p>Since TroopJS is highly modualized and AMD compatible, you can specify individual dependencies in your bower.json file, e.g. the following config put restraints over some browser-related troop modules while staying loose with the other core+
+              modules:</p>
+            <pre><code class="language-js">{
+  <span class="string">"name"</span>: <span class="string">"app"</span>,
+  <span class="string">"version"</span>: <span class="string">"0.0.0"</span>,
+  <span class="string">"description"</span>: <span class="string">"TroopJS app"</span>,
+  <span class="string">"dependencies"</span>: {
+    <span class="string">"troopjs-compose"</span>: <span class="string">""</span>,
+    <span class="string">"troopjs-core"</span>: <span class="string">""</span>,
+    <span class="string">"troopjs-log"</span>: <span class="string">""</span>,
+    <span class="string">"troopjs-net"</span>: <span class="string">""</span>,
+    <span class="string">"troopjs-jquery"</span>: <span class="string">""</span>,
+    <span class="string">"troopjs-requirejs"</span>: <span class="string">""</span>,
+    <span class="string">"troopjs-dom"</span>: <span class="string">"5.1.4"</span>,
+    <span class="string">"troopjs-data"</span>: <span class="string">"4.0.3"</span>,
+    <span class="string">"troopjs-opt"</span>: <span class="string">"1.0.3"</span> 
+  }
+}</code></pre>
+            <p>Then issue the <code>bower install</code> shall give you all required dependencies installed, including all 3rd-party libraries that individual module reles on.</p>
+            <blockquote>
+              <p>Note: You may get prompted from bower version conflicts warning if peer dependencies versions are not satisfied, you can resort to the &quot;resolutions&quot; field to resolve
+                <a href="https://github.com/bower/bower/wiki/Rewrite-state">version conflicts</a> 
+              </p>
+            </blockquote>
+            <p>Now with the same requireJS configuration above, with only a small modification (git grid of the &#39;troopjs&#39; package definition section), the page will load with all TroopJS modules loaded from source with module path resolved as their
+              package location.</p>
+            <pre><code class="language-js">&lt;!DOCTYPE HTML&gt;
+<span class="xml"><span class="tag">&lt;<span class="title">html</span> &gt;</span> 
+<span class="tag">&lt;<span class="title">head</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">title</span> &gt;</span> TroopJS App<span class="tag">&lt;/<span class="title">title</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">meta</span>  <span class="attribute">charset</span> =<span class="value">"UTF-8"</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">meta</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">script</span>  <span class="attribute">src</span> =<span class="value">"bower_components/requirejs/require.js"</span> &gt;</span> <span class="javascript"></span> <span class="tag">&lt;/<span class="title">script</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">script</span>  <span class="attribute">src</span> =<span class="value">"main.js"</span> &gt;</span> <span class="javascript"></span> <span class="tag">&lt;/<span class="title">script</span> &gt;</span> 
+  <span class="tag">&lt;<span class="title">script</span> &gt;</span> <span class="javascript">
+    require.config({
+      baseUrl: <span class="string">'bower_components'</span>,
+      <span class="comment">// define AMD package layout for all dependencies.</span> 
+      packages: [
+        {
+          name: <span class="string">'jquery'</span>,
+          main: <span class="string">'dist/jquery.js'</span> 
+        },
+        {
+          name: <span class="string">'poly'</span>,
+          main: <span class="string">'poly.js'</span> 
+        },
+        {
+          name: <span class="string">'requirejs'</span>,
+          main: <span class="string">'require.js'</span> 
+        },
+        {
+          name: <span class="string">'when'</span>,
+          main: <span class="string">'when.js'</span> 
+        }
+      ],
+      callback: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
+        require([<span class="string">'troopjs-dom/application/widget'</span>, <span class="string">'jquery'</span> ], <span class="function"><span class="keyword">function</span>  <span class="params">(app, $)</span>  {</span> 
+          app($(<span class="string">'html'</span> )).start();
+        });
+      }
+    });
+  </span> <span class="tag">&lt;/<span class="title">script</span> &gt;</span> 
+<span class="tag">&lt;/<span class="title">head</span> &gt;</span> 
+<span class="tag">&lt;<span class="title">body</span>  <span class="attribute">data-weave</span> =<span class="value">"app/kickoff"</span> &gt;</span> 
+<span class="tag">&lt;/<span class="title">body</span> &gt;</span> 
+<span class="tag">&lt;/<span class="title">html</span> &gt;</span> </span> </code></pre>
+            <h3 id="yeoman-generator">Yeoman Generator</h3> 
+            <p>Install TroopJS the most laziest way is to use
+              <a href="http://yeoman.io/">yeoman</a> generator which takes care of scaffolding and generating the minimal amount of code for an initial state:</p>
+            <pre><code class="language-shell">$ (sudo) npm install -g yo
+$ npm install generator-troopjs</code></pre>
+            <p>To generate a TroopJS application:</p>
+            <pre><code class="language-shell">$ cd $app
+$ yo troopjs</code></pre>
+            <p>By answering a few questions, generator gives you a conventional application scaffold where you can start from:</p>
+            <pre><code>.
+|-- Gruntfile.js
+|-- README.md
+|-- bower.json
+|-- index.html
+|-- main.js
+|-- package.json
+`-- widget
+    |-- README
+    |-- controller.js
+    `-- initialization
+        |-- main.css
+        `-- main.js
+2 directories, 10 files</code></pre>
+            <hr>
+            <div class="alert">
+              <p>Find an error?
+                <a class="alert-link" href="https://github.com/troopjs/troopjs.com/issues?state=open">Let us know →</a> 
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/holder.js"></script>
+    <script src="../assets/js/highlight.js"></script>
+    <script src="../assets/js/showup.js"></script>
+    <script>
+      $().showUp('.navbar');
+    </script>
+  </body>
+</html>
+
