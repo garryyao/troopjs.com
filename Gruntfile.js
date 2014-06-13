@@ -147,7 +147,7 @@ module.exports = function (grunt) {
 
     'gh-pages': {
       options: {
-        base: '_gh_pages',
+        base: 'master',
         message: 'update with latest generated website pages'
       },
       src: ['**']
@@ -198,7 +198,7 @@ module.exports = function (grunt) {
     'sync'
   ]);
 
-  // Release to gh-pages branch.
+  // Release to master branch.
   grunt.registerTask('release', [
     'default',
     'gh-pages'
