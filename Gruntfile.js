@@ -153,7 +153,8 @@ module.exports = function (grunt) {
 
     'gh-pages': {
       options: {
-        base: 'master',
+        base: '<%= site.destination %>',
+        branch: 'master',
         message: 'update with latest generated website pages'
       },
       src: ['**']
