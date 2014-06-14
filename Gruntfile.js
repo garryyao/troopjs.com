@@ -30,7 +30,6 @@ module.exports = function (grunt) {
     bootstrap: grunt.file.readYAML('src/less/bootstrap.yml'),
     ghpages  : grunt.file.readYAML('src/less/ghpages.yml'),
     site     : grunt.file.readYAML('src/data/site.yml'),
-    helpers  : grunt.file.readJSON('templates/pages/helpers.json'), // config for "helpers" docs
 
     /**
      * Process LESS files
@@ -109,6 +108,13 @@ module.exports = function (grunt) {
        */
       docs: {
         files: [
+          {
+            expand: true,
+            cwd: 'templates/pages',
+            src: ['*.hbs'],
+            dest: '<%= site.destination %>/',
+            ext: '.html'
+          },
           {
             expand: true,
             cwd: 'templates/pages/docs',
