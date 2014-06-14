@@ -10,37 +10,33 @@
     </title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../assets/css/assemble.css">
-    <link rel="stylesheet" href="../assets/css/markdown.css">
-    <link rel="stylesheet" href="../assets/css/gist.css">
-
-    <!-- Webfonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="assets/css/assemble.css">
+    <link rel="stylesheet" href="assets/css/markdown.css">
+    <link rel="stylesheet" href="assets/css/gist.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
     <!--[if lt IE 9]>
-  <script src="../assets/js/html5shiv.js"></script>
-  <script src="../assets/js/respond/respond.min.js"></script>
+  <script src="assets/js/html5shiv.js"></script>
+  <script src="assets/js/respond/respond.min.js"></script>
 <![endif]-->
 
     <!-- Favicons -->
-    <link rel="shortcut icon" type="image/png" href="../assets/img/favicon.png">
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      var pluginUrl =
-        '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
-      _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
-      _gaq.push(['_setAccount', 'UA-33358518-5']);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-      })();
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <script>
+      (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-51860620-1', 'troopjs.com');
+      ga('send', 'pageview');
     </script>
   </head>
   <body style="background: white;" data-spy="scroll" data-target=".bs-sidebar">
@@ -52,17 +48,17 @@
             <span class="icon-bar"></span> 
             <span class="icon-bar"></span> 
           </button>
-          <a href="../docs/" class="navbar-brand" style="background: url(../assets/img/brand.png) transparent no-repeat;">
+          <a href="docs/" class="navbar-brand" style="background: url(assets/img/brand.png) transparent no-repeat;">
             Troop.JS
           </a> 
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
           <ul class="nav navbar-nav">
             <li>
-              <a href="../docs/">Docs</a> 
+              <a href="docs/">Docs</a> 
             </li>
             <li>
-              <a href="../contrib/">Contrib</a> 
+              <a href="contrib/">Contrib</a> 
             </li>
             <li>
               <a href="https://cdn.rawgit.com/troopjs/troopjs/build/3.x/docs/index.html" title="TroopJS 3.x API Docs" target="_blank">API</a> 
@@ -106,10 +102,10 @@
                 <a href="index.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Introduction']);">Introduction</a> 
               </li>
               <li>
-                <a href="Installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
+                <a href="docs/Installation.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Installation']);">Installation</a> 
               </li>
               <li>
-                <a href="first-app.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Kick Start']);">Kick Start</a> 
+                <a href="docs/first-app.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'getting started/Kick Start']);">Kick Start</a> 
               </li>
             </ul>
             <span class="nav-section-title">
@@ -117,19 +113,19 @@
             </span> 
             <ul class="nav nav-pills nav-stacked">
               <li>
-                <a href="compose.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Compose']);">Compose</a> 
+                <a href="docs/compose.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Compose']);">Compose</a> 
               </li>
               <li>
-                <a href="component.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Component']);">Component</a> 
+                <a href="docs/component.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Component']);">Component</a> 
               </li>
               <li>
-                <a href="events.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Events']);">Events</a> 
+                <a href="docs/events.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Events']);">Events</a> 
               </li>
               <li>
-                <a href="dom.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Widget']);">Widget</a> 
+                <a href="docs/dom.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Widget']);">Widget</a> 
               </li>
               <li>
-                <a href="data.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Data']);">Data</a> 
+                <a href="docs/data.html" onclick="_gaq.push(['_trackEvent', 'Sidenav', 'clicked', 'concepts/Data']);">Data</a> 
               </li>
             </ul>
           </div>
@@ -137,12 +133,12 @@
         <div class="col col-lg-9">
           <div class="panel panel-docs">
             <blockquote>
-              <p>TroopJS is a tiny framework for building <strong>scalable</strong>  javascript code, being intrinsically modular, declarative, performant, and interoperable, it is considerably suitable for growing complex and compound application that assembles
-                massive amount of components.</p>
+              <p>TroopJS is a tiny framework for building <strong>scalable</strong>  javascript application, being intrinsically modular, declarative, interoperable and performant, it considerably suits for growing complex web page that assembles massive amount
+                of components.</p>
             </blockquote>
             <h2 id="why-troopjs">Why TroopJS</h2> 
-            <p>JavaScript web applications are typically built the hard way, the magnitude of complexity escalate rapidly especially when your application scales, disorganized, fragile, divergency code are always the culprits that harming you, TroopJS attempt
-              to govern the madness with proven patterns and smart infrastructures, by embracing TroopJS your app will inheirt following unique genes:</p>
+            <p>JavaScript web applications are typically built the hard way, the magnitude of complexity escalate rapidly especially when your application scales. Disorganized, fragile, divergency code are always harming your app, TroopJS attempt to govern
+              the madness with proven patterns and smart infrastructures, by embracing TroopJS your app will inheirt following unique genes:</p>
             <ul>
               <li><strong>Asynchronous</strong>  by
                 <a href="http://promises-aplus.github.io/promises-spec/">Promise A+</a>, staynig away from callback hell;</li>
@@ -189,11 +185,11 @@
         </div>
       </div>
     </div>
-    <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <script src="../assets/js/holder.js"></script>
-    <script src="../assets/js/highlight.js"></script>
-    <script src="../assets/js/showup.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/holder.js"></script>
+    <script src="assets/js/highlight.js"></script>
+    <script src="assets/js/showup.js"></script>
     <script>
       $().showUp('.navbar');
     </script>
