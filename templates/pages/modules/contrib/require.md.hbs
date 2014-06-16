@@ -11,8 +11,8 @@ title: troopjs-require
 
 ## Load JSON
 
-The `troopjs-requirejs/json` plugin allows you to select arbitary properties from a JSON file loaded. The following is
-`troopjs/version` module that examplify it's usage.
+The `troopjs-requirejs/json` plugin allows you to select arbitrary properties from a JSON file loaded. The following is
+`troopjs/version` module that exemplify it's usage.
 
 ```js
 define("troopjs/version", [ "json!./bower.json#version" ], function (version) {
@@ -22,8 +22,8 @@ define("troopjs/version", [ "json!./bower.json#version" ], function (version) {
 
 ## AMDify your module
 
-The `troopjs-requirejs/shadow` plugin wrap any non-AMD module with your specified variable deps and exports,
-it works by loading JavaScript source from ajax, so be aware it is constrainted by same-origin-policy unless you're
+The `troopjs-requirejs/shadow` plugin wrap any non-AMD module with your specified dependency variables and `exports`,
+it works by loading JavaScript source from ajax, so be aware it is constrained by same-origin-policy unless you're
 working with an optimized bundle.
 
 The following example AMDify the bootstrap tooltip module under path `bootstrap.tooltip` which depends on the `jquery`
@@ -47,9 +47,9 @@ require(["shadow!backbone#jQuery=jquery&exports=Backbone"], function(Backbone){}
 
 ## Load multiple versions of TroopJS
 
-Do you know requirejs has a [context](http://requirejs.org/docs/1.0/docs/api.html#multiversion) concept which allows for
+RequireJS supports for the [context](http://requirejs.org/docs/1.0/docs/api.html#multiversion) feature which allows for
 you to two different "generations" of module versions on the same page, TroopJS utilize this feature to bridge two versions
-of TroopJS (like a wormhole) that are considered incompitble, this would not be possible without `troopjs-requirejs/multiversion`
+of TroopJS (like a wormhole) that are considered incompatible, this would not be possible without `troopjs-requirejs/multiversion`
 plugin which basically allows one module to be required from within a different context, eventually referencing it.
 
 ```js
@@ -66,4 +66,4 @@ require(["troopjs-opt/pubsub/proxy/to1x", "mv!troopjs-core/pubsub/hub#troopjs-1.
 });
 ```
 The above example maps hub messages from TroopJS 1.x version to new names in TroopJS 3.x, loading `troopjs-core/pubsub/hub`
-from the "1.x" requirejs context.
+from the "1.x" context.

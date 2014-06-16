@@ -15,13 +15,13 @@ initial step of TroopJS development.
 ## Setup the bundle
 clone the bundle [repository](https://github.com/troopjs/troopjs) first:
 
-```bash
+```shell
 git clone https://github.com/troopjs/troopjs
 cd troopjs
 ```
 To install the list of default modules from bower, only core modules will be included as default
 
-```bash
+```shell
 bower install
 ```
 
@@ -32,7 +32,7 @@ that individual module relies on.
 
 TroopJS uses [grunt](http://gruntjs.com) as the build system, first make sure grunt and all grunt task plugins are installed via NPM.
 
-```bash
+```shell
 npm install
 ```
 
@@ -62,14 +62,14 @@ TroopJS tests are written and run in [Buster.JS](http://docs.busterjs.org/), all
 Run tests with phantomJS is the simpliest way of verying all tests are green, which is available as grunt task `test`,
 if it's your first time of running this command buster and phantomJS will be installed which will take a while.
 
-```bash
+```shell
 grunt test
 ```
 
 Run only specific tests statically in one browser is handy for debugging and trouble shoot test failures, launch `buster-static`
 and point your browser to printed runner URL.
 
-```bash
+```shell
 buster-static
 Starting server on http://localhost:8282/
 ```
@@ -77,21 +77,21 @@ Starting server on http://localhost:8282/
 You can also specify glob pattern that filters down the tests further and to run only those tests, e.g. the following
 is to run only tests from `troopjs-core` module.
 
-```bash
+```shell
 buster-static -t "/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js"
 ```
 
 To run tests simutaneously with captured browsers you should instead launch `buster-server`, open the runner page with
 your concerned browsers and click for "capture".
 
-```bash
+```shell
 buster-server
 buster-server running on http://localhost:1111
 ```
 
 Then you can run tests from command line like the above with static runner.
 
-```bash
+```shell
 buster-static -t "/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js"
 ```
 

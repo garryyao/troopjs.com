@@ -5,8 +5,8 @@ title: Events
 order: 2
 ---
 
-> Events in TroopJS is the heart of powering all **reactive** methods on component - functions declaired as specials
-> that are actually event hanlders, like signals, hub subscribers, and route functions.
+> Events in TroopJS is the heart of powering all **reactive** methods on component - functions declared as specials
+> that are actually event handlers, like signals, hub subscribers, and route functions.
 > Events enforced decoupling of functionality allows developer to consider each component
 > in isolation, and communicate loosely without direct references, contract by event name (topic) and values,
 > which significant reduces the growing complexity of the application and facilitate scalability.
@@ -22,12 +22,12 @@ the runner (explained later on) could potentially blocks from entering the next 
 {{ gist 'c31c7b9ca2e99d086e1f'}}
 
 As in above example, regular events subscription on component can be written in special like "on/login", which is
-equivilent to imperative way of registering an event listener, the scope of the hanlder function will always be the
+equivalent to imperative way of registering an event listener, the scope of the handler function will always be the
 component itself:
 
 {{ gist 'baf3a2b1287cf493f9c6'}}
 
-Arbitary arguments can be passed when calling `emit`, which will be always be recevied as **arguments** in handler function,
+Arbitrary arguments can be passed when calling `emit`, which will be always be received as **arguments** in handler function,
 return value of the `emit` function is runner (explained later on) dependent, but results for each of the listener
 function will always be an array - even if you returned just a single value from the handler, this allows for multiple
 values to be returned. So typically they have to be spread over to the callback arguments.
@@ -59,7 +59,7 @@ By employing hub events, we can easily rewrite the above login authentication sa
 ## Event Runner
 
 When there exist hub event that has more than one subscribers involved, TroopJS introduce the concept of **runner** -
-an optional argument to the `emit` method that defines serveral aspects of how handler functions are executed:
+an optional argument to the `emit` method that defines several aspects of how handler functions are executed:
 
  - The way how handlers are running, either running synchronously in a loop or asynchronously wait for the previous one to complete;
  - What arguments do handler function receives, how return value from a handler affects the others;
@@ -82,7 +82,7 @@ value for emitting, this is the way how **hub event** subscribers work.
 
 ## Synchronous Sequence
 
-Check the below example that does synchronous sequencial emitting, it works in similiar with the sequential runner excepts
+Check the below example that does synchronous sequential emitting, it works in similar with the sequential runner excepts
 that all listeners are running in a **loop without blocking** each other, disregard whether a promise is returned from the handler
 function, a few special signals (like 'setup/teardown/add/remove' are intentionally run in this way to avoid breaking
 synchronous call stack.
@@ -98,7 +98,7 @@ value of the `emit` function, internally what/how the handlers are executed are 
 {{ gist 'd020337a618391ae084c'}}
 
 TroopJS specials are thus extremely extensible utilizing a new runner, for instance 'opt/route/gardget' component
-adds two specials - 'route/change' and 'route/add' by implementing a runner that hanle these two events, and only to
+adds two specials - 'route/change' and 'route/add' by implementing a runner that handler these two events, and only to
 call the listener when a route pattern specified in the special signature, like `route/change/:foo/(:bar)?` actually matches
 the URI, check `troopjs-opt` package for more details.
 

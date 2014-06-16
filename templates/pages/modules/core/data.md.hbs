@@ -18,13 +18,14 @@ we're able to serialize the entire graph into big flatten JavaScript array that 
 
 Two objects, both have an unique id that is consisted of a resource type and an identifier, e.g. `user!troopjs` or `profile!0`.
 `user` object is referencing it's profile by a **collapsed object** with the profile id, when querying for the
-user object, say, from server, it is possible that user is only interested in user's "email" rathen than the profile, making
-the `profile` property optionally **expandable**, in this way payload on the wire is optimizely reduced, allowing the client to re-assemble properties on demand:
+user object, say, from server, it is possible that user is only interested in user's "email" rather than the profile, making
+the `profile` property optionally **expandable**, in this way payload on the wire is significantly reduced, eventually
+allowing the client to re-assemble properties on demand:
 
 {{ gist 'ad68b9b23214efcd67be'}}
 
 It is an important consideration that Object Graph is of plain old JavaScript objects without imposing any intermediate
-data structure, this makes it extremely easy for consumption, blazingly fast and is future proof with data binding by Object.observe.
+data structure, this makes it extremely easy for consumption, blazing fast and is future proof with data binding by Object.observe.
 expiration is by adding a few additional *meta properties*, even granular cache control for each objects is feasible.
 
 {{ gist '745a098c1533c145ec23'}}
@@ -55,14 +56,14 @@ batched queries that are sent periodically.
 
 In the above example, if you have queried for `user!troopjs.repos` moments ago,
 this object will be returned immediately served from cache, eliminating the need for querying the server again,
-a significant benefit comming from the fact that since cache reducing is transparent for the query service,
+a significant benefit coming from the fact that since cache reducing is transparent for the query service,
 mock server communication is as simple as populating the cache:
 
 {{ gist 'def16e04f6439aa47f7d'}}
 
 ## Cache Expiration
 
-The GC is an optional optimizational service provided by `data/cache/service` that take cares of de-referencing
+The GC is an optional optimization service provided by `data/cache/service` that take cares of de-referencing
 any expired objects from cache to free out memories, it implements a generation-based algorithms for efficiently
 determinate expired objects, each GC run should have very little impact on performance.
 The GC will be running automatically as soon as the service is started.
@@ -70,5 +71,5 @@ The GC will be running automatically as soon as the service is started.
 ## Persisted Cache
 
 The built-in cache component is memory-based, but it's fairly easy to implement a cache component powered by
-persisted storage, as an example for landing cache in localstorage, checkout `opt/store/component` and
+persisted storage, as an example for landing cache in local storage, checkout `opt/store/component` and
 `contrib-browser/contrib-browser/store/adapter/local` for details.

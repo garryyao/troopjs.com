@@ -7,71 +7,15 @@ order: 2
 
 ## First TroopJS App
 
-After the succesful installation of TroopJS, let's start by creating a simplest application.
+After the successful installation of TroopJS, let's start by creating a simplest application.
 
  - We create the widget `app/kickoff` that is a `troopjs-dom/component/widget` component started by the application,
-which renders some greating text, which is declared as the `data-weave` attribute on body element.
+which renders some greeting text, which is declared as the `data-weave` attribute on body element.
 
  - We bootstrap the application by creating a `troopjs-dom/application/widget` component that lives on the top-level page
 element (`html` element) that is responsible for weaving all page components like the above `app/kickoff` one.
 
 
-Now when you load the page you should notice the welcome message which indicate TroopJS has successfully bootstraped.
+Now when you load the page you should notice the welcome message which indicate TroopJS has bootstrapped successfully.
 
-```html
-<!DOCTYPE HTML>
-<html>
-<head>
-  <title>TroopJS Kickoff</title>
-  <meta charset="UTF-8">
-  <meta>
-  <script src="bower_components/requirejs/require.js"></script>
-  <script src="main.js"></script>
-  <script>
-    require.config({
-      baseUrl: 'bower_components',
-      // define all package layout for all troopjs dependencies
-      packages: [
-        {
-          name: 'jquery',
-          main: 'dist/jquery.js'
-        },
-        {
-          name: 'poly',
-          main: 'poly.js'
-        },
-        {
-          name: 'requirejs',
-          main: 'require.js'
-        },
-        {
-          name: 'when',
-          main: 'when.js'
-        },
-        {
-          name: 'troopjs',
-          main: 'maxi.js'
-        }
-      ],
-      deps: ['troopjs'],
-      callback: function () {
-        require(['troopjs-dom/application/widget', 'jquery'], function (app, $) {
-          app($('html')).start();
-        });
-      }
-    });
-
-    define('app/kickoff', ['troopjs-dom/component/widget'], function (Widget) {
-      return Widget.extend({
-        "sig/start": function () {
-          this.html('Hello TroopJS!');
-        }
-      });
-    });
-  </script>
-</head>
-<body data-weave="app/kickoff">
-</body>
-</html>
-```
-
+{{ gist '6c79faa734cf023b964a'}}
