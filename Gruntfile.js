@@ -161,10 +161,15 @@ module.exports = function (grunt) {
     },
 
     copy: {
-      docs: {
+      assets: {
         files: [
           {expand: true, cwd: 'assets', src: ['**/*'], dest: '<%= site.destination %>/assets'}
         ]
+      },
+      cname: {
+        files: {
+          '<%= site.destination %>/CNAME': 'CNAME'
+        }
       }
     },
 
