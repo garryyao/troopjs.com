@@ -133,7 +133,7 @@
         <div class="col col-lg-9">
           <div class="panel panel-docs">
             <blockquote>
-              <p>Events in TroopJS is the heart of powering all <strong>reactive</strong>  methods on component - functions declaired as specials that are actually event hanlders, like signals, hub subscribers, and route functions. Events enforced decoupling
+              <p>Events in TroopJS is the heart of powering all <strong>reactive</strong>  methods on component - functions declared as specials that are actually event handlers, like signals, hub subscribers, and route functions. Events enforced decoupling
                 of functionality allows developer to consider each component in isolation, and communicate loosely without direct references, contract by event name (topic) and values, which significant reduces the growing complexity of the application
                 and facilitate scalability.</p>
             </blockquote>
@@ -142,10 +142,10 @@
               <a href="http://nodejs.org/api/events.html">event emitter API</a>, but to distinguish with most of the common event system, Troop&#39;s events are intrinsically <em>asynchronous<strong>  - it always return
 a </strong> promise*</em> that is resolved when all listeners have resolved, each handler function if returning a promise, depending on the runner (explained later on) could potentially blocks from entering the next handler in queue.</p>
             <script src="https://gist.github.com/c31c7b9ca2e99d086e1f.js"></script>
-            <p>As in above example, regular events subscription on component can be written in special like &quot;on/login&quot;, which is equivilent to imperative way of registering an event listener, the scope of the hanlder function will always be the
+            <p>As in above example, regular events subscription on component can be written in special like &quot;on/login&quot;, which is equivalent to imperative way of registering an event listener, the scope of the handler function will always be the
               component itself:</p>
             <script src="https://gist.github.com/baf3a2b1287cf493f9c6.js"></script>
-            <p>Arbitary arguments can be passed when calling <code>emit</code>, which will be always be recevied as <strong>arguments</strong>  in handler function, return value of the <code>emit</code> function is runner (explained later on) dependent, but results
+            <p>Arbitrary arguments can be passed when calling <code>emit</code>, which will be always be received as <strong>arguments</strong>  in handler function, return value of the <code>emit</code> function is runner (explained later on) dependent, but results
               for each of the listener function will always be an array - even if you returned just a single value from the handler, this allows for multiple values to be returned. So typically they have to be spread over to the callback arguments.</p>
             <script src="https://gist.github.com/baf3a2b1287cf493f9c6.js"></script>
             <p>This type of events are best for internal component calls, or conversation among small group of components that are tightly coupled.</p>
@@ -159,8 +159,7 @@ a </strong> promise*</em> that is resolved when all listeners have resolved, eac
             <p>By employing hub events, we can easily rewrite the above login authentication sample into two components, one of them as service:</p>
             <script src="https://gist.github.com/4156df60151b2ba7af8c.js"></script>
             <h2 id="event-runner">Event Runner</h2> 
-            <p>When there exist hub event that has more than one subscribers involved, TroopJS introduce the concept of <strong>runner</strong>  - an optional argument to the <code>emit</code> method that defines serveral aspects of how handler functions are
-              executed:</p>
+            <p>When there exist hub event that has more than one subscribers involved, TroopJS introduce the concept of <strong>runner</strong>  - an optional argument to the <code>emit</code> method that defines several aspects of how handler functions are executed:</p>
             <ul>
               <li>The way how handlers are running, either running synchronously in a loop or asynchronously wait for the previous one to complete;</li>
               <li>What arguments do handler function receives, how return value from a handler affects the others;</li>
@@ -175,14 +174,14 @@ a </strong> promise*</em> that is resolved when all listeners have resolved, eac
 from the previous one</strong>  (unless nothing is returned), return value of the last handler function is collected as the return value for emitting, this is the way how <strong>hub event</strong>  subscribers work.</p>
             <script src="https://gist.github.com/58323d08fceaaca82604.js"></script>
             <h2 id="synchronous-sequence">Synchronous Sequence</h2> 
-            <p>Check the below example that does synchronous sequencial emitting, it works in similiar with the sequential runner excepts that all listeners are running in a <strong>loop without blocking</strong>  each other, disregard whether a promise is
-              returned from the handler function, a few special signals (like &#39;setup/teardown/add/remove&#39; are intentionally run in this way to avoid breaking synchronous call stack.</p>
+            <p>Check the below example that does synchronous sequential emitting, it works in similar with the sequential runner excepts that all listeners are running in a <strong>loop without blocking</strong>  each other, disregard whether a promise is returned
+              from the handler function, a few special signals (like &#39;setup/teardown/add/remove&#39; are intentionally run in this way to avoid breaking synchronous call stack.</p>
             <script src="https://gist.github.com/ae3e4338820e8b7d15f8.js"></script>
             <h2 id="custom-runner">Custom Runner</h2> 
             <p>The above used TroopJS event runners are built-in ones, while it is extremely easy for you to define a simple function that takes the <strong>event name</strong>  and <strong>handler candidates</strong>  as arguments and to return a promised value
               that is the return value of the <code>emit</code> function, internally what/how the handlers are executed are completely up to you.</p>
             <script src="https://gist.github.com/d020337a618391ae084c.js"></script>
-            <p>TroopJS specials are thus extremely extensible utilizing a new runner, for instance &#39;opt/route/gardget&#39; component adds two specials - &#39;route/change&#39; and &#39;route/add&#39; by implementing a runner that hanle these two events,
+            <p>TroopJS specials are thus extremely extensible utilizing a new runner, for instance &#39;opt/route/gardget&#39; component adds two specials - &#39;route/change&#39; and &#39;route/add&#39; by implementing a runner that handler these two events,
               and only to call the listener when a route pattern specified in the special signature, like <code>route/change/:foo/(:bar)?</code> actually matches the URI, check <code>troopjs-opt</code> package for more details.</p>
             <hr>
             <div class="alert">

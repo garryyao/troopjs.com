@@ -133,24 +133,24 @@
         <div class="col col-lg-9">
           <div class="panel panel-docs">
             <blockquote>
-              <p>The browser module are unobstrusive widgets that &quot;weave in&quot; behaviors on DOM elements, typically reflecting the &quot;V&quot; layer in MVC. Widget delegates all interactions with the underlay DOM element, interfaceing by <strong>hub topics</strong>  and <strong>DOM events</strong>.
+              <p>The browser module are unobtrusive widgets that &quot;weave in&quot; behaviors on DOM elements, typically reflecting the &quot;V&quot; layer in MVC. Widget delegates all interactions with the underlay DOM element, interfacing by <strong>hub topics</strong>  and <strong>DOM events</strong>.
                 Since widget is ultra lightweight and open-ended thus can easily embrace any data binding or rendering implementation.</p>
             </blockquote>
             <h2 id="widget">Widget</h2> 
-            <p>TroopJS widgets are kind of components created by <code>dom.component.widget</code> that is attached to a single DOM element and is destroied along with the removal of the DOM element. A jQuery DOM element is referenced by it&#39;s <code>$element</code> property,</p>
+            <p>TroopJS widgets are kind of components created by <code>dom.component.widget</code> that is attached to a single DOM element and is to destroy along with the removal of the DOM element. A jQuery DOM element is referenced by it&#39;s <code>$element</code> property,</p>
             <script src="https://gist.github.com/424fe30ce09fc133ec5f.js"></script>
             <p>In addition to having a special constructor, DOM widget also specialized in delegating all <strong>DOM events</strong>  with the &quot;dom&quot; specials, or subscribes to hub topics with the &quot;hub&quot; special, through both ways components
-              can communicatie with each one, while depending on different usage senarios, using &quot;dom&quot; or &quot;hub&quot; could be different:</p>
+              can communicate with each one, while depending on different usage scenarios using &quot;dom&quot; or &quot;hub&quot; could be different:</p>
             <ul>
-              <li>If widgets are hierarchically related in DOM tree, DOM events bubbling would be the best choice, but note that DOM event can support only synchronous handling senario.</li>
-              <li>If widgets are structurally irrevelant and requires asyncronous handling, hub events shall be used for widget communication.</li>
+              <li>If widgets are hierarchically related in DOM tree, DOM events bubbling would be the best choice, but note that DOM event can support only synchronous handling scenario.</li>
+              <li>If widgets are structurally irrelevant and requires asynchronous handling, hub events shall be used for widget communication.</li>
             </ul>
             <p>The &quot;dom&quot; special signature takes the form of <code>dom:selector/type</code>, where selector is an optional CSS selector that matches the target element and <code>type</code> is just the event type, equivalent to this jQuery event delegation
-              call - <code>this.$element.on(&#39;type&#39;, &#39;selector&#39;, handler)</code>.</p>
-            <p>The following examplify a simple widget that facilitates both DOM and hub events:</p>
+              call -
+              <code>this.$element.on(&#39;type&#39;, &#39;selector&#39;, handler)</code>. The following exemplify a simple widget that facilitates both DOM and hub events:</p>
             <script src="https://gist.github.com/bd3e81be2aa8b665814c.js"></script>
             <h2 id="weave">Weave</h2> 
-            <p>Imperatively draw the relationship between component and DOM element is obviously not the best, which leads to highly coupled code with HTML structure, and can easily becomes a maintaince hell.
+            <p>Imperatively draw the relationship between component and DOM element is obviously not the best, which leads to highly coupled code with HTML structure, and can easily becomes a maintenance hell.
               <strong>Weave</strong>  in terms of TroopJS is defined as the process of instantiating a widget component, starting it&#39;s life-circle and to associate with an DOM element, TroopJS inverse the control by declaratively map between the component
               module and associate DOM element via a custom HTML attribute <code>data-weave</code>, this is coincident with the Web component concept where internal presentation and behaviors of the HTML element is completely transparent to outside of
               the element and can be altered with ease.</p>
@@ -169,8 +169,8 @@
             <script src="https://gist.github.com/d5a763667591ef596ae3.js"></script>
             <p>Alternatively TroopJS extends all <strong>loom methods</strong>  as jQuery plugins, it is straight forward to weave all elements of a jQuery object by simply calling <code>$.fn.weave()</code>:</p>
             <script src="https://gist.github.com/cb6a1741bf8eccc560d0.js"></script>
-            <p>Eventually if you&#39;re lazy and don&#39;t want to be bothered by weaving manually, TroopJS has proxied the following jQuery DOM manipulation methods <em>on widget scope</em> so whenever you call them TroopJS weaves all the descendants DOM
-              elements afterward:</p>
+            <p>Eventually if you&#39;re lazy and don&#39;t want to be bothered by weaving manually, TroopJS proxies the following jQuery DOM manipulation methods <em>on widget scope</em> so whenever you call them TroopJS weaves all the descendants DOM elements
+              afterward:</p>
             <ul>
               <li>before</li>
               <li>after</li>
@@ -178,14 +178,14 @@
               <li>append</li>
               <li>prepend</li>
             </ul>
-            <p>The proxied methods, instead of returning a jQuery chainable, will instead return a promise that is to be resolved with all woven widgets:</p>
+            <p>The proxy methods, instead of returning a jQuery chain-able, will instead return a promise that is to be resolved with all woven widgets:</p>
             <script src="https://gist.github.com/57519d2befef0ed9a4ae.js"></script>
             <h3 id="weave-multiple-widgets">Weave multiple widgets</h3> 
             <p>Not only a single widget can be weaved on an element, multiple widgets could be sharing the same element, implements different features that eventually composed as layers. The following example that weaves two widgets that plays the submit
               and validation behaviors correspondingly on an element:</p>
             <script src="https://gist.github.com/1feb5f7de0c591f55636.js"></script>
             <h2 id="unweave">Unweave</h2> 
-            <p>A DOM widget is considered to be <strong>stopped</strong>, either because it&#39;s underlay element has been removed from the DOM tree, or becaused you have intentionally called {@link browser.component.widget#unweave} as <code>$(&#39;#foo&#39;).unweave();</code> so
+            <p>A DOM widget is considered to be <strong>stopped</strong>, either because it&#39;s underlay element has been removed from the DOM tree, or because you have intentionally called {@link browser.component.widget#unweave} as <code>$(&#39;#foo&#39;).unweave();</code> so
               it
               <strong>unweaved</strong>  living widgets that are found on this element, which will basically cleanup everything before detaching it from the DOM element (include data attributes and DOM listeners), if the widget has no other references it
               will be garbage-collected.</p>
@@ -193,7 +193,7 @@
               attribute that TroopJS will check beforehand to <strong>selectively</strong>  unweave only a certain widgets, e.g. the following code remove only the &quot;validation&quot; widget on element while remains the form submitting widget functional.</p>
             <script src="https://gist.github.com/74de79f9190e31b6ac65.js"></script>
             <h2 id="application">Application</h2> 
-            <p>There must have to be some bootstraping code that actually call <code>weave</code> for DOM elements always, TroopJS constructs a special widget <code>dom/application/widget</code> for this role - the only guaranteed singular application container
+            <p>There must have to be some bootstrapping code that actually call <code>weave</code> for DOM elements always, TroopJS constructs a special widget <code>dom/application/widget</code> for this role - the only guaranteed singular application container
               per page, which takes care of:</p>
             <ul>
               <li>managing services</li>
@@ -201,7 +201,7 @@
               <li>route by URI (optional)</li>
               <li>handle DOM events bubbling (optional)</li>
             </ul>
-            <p>Other than regular widget that receives the DOM element as first argument, which could be either <code>body</code>, <code>html</code> or any root element that makes sense for your app, the application constructor should recieve a list of components
+            <p>Other than regular widget that receives the DOM element as first argument, which could be either <code>body</code>, <code>html</code> or any root element that makes sense for your app, the application constructor should relieve a list of components
               instances in starting order, application will start them in sequence and then to weave all widgets found in DOM tree descendants.</p>
             <script src="https://gist.github.com/baf8caafbe4446d77b99.js"></script>
             <hr>

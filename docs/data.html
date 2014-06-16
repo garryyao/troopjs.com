@@ -141,9 +141,9 @@
             <script src="https://gist.github.com/d4f093558473c95eaf59.js"></script>
             <p>Two objects, both have an unique id that is consisted of a resource type and an identifier, e.g. <code>user!troopjs</code> or <code>profile!0</code>.
               <code>user</code> object is referencing it&#39;s profile by a <strong>collapsed object</strong>  with the profile id, when querying for the user object, say, from server, it is possible that user is only interested in user&#39;s &quot;email&quot;
-              rathen than the profile, making the <code>profile</code> property optionally <strong>expandable</strong>, in this way payload on the wire is optimizely reduced, allowing the client to re-assemble properties on demand:</p>
+              rather than the profile, making the <code>profile</code> property optionally <strong>expandable</strong>, in this way payload on the wire is significantly reduced, eventually allowing the client to re-assemble properties on demand:</p>
             <script src="https://gist.github.com/ad68b9b23214efcd67be.js"></script>
-            <p>It is an important consideration that Object Graph is of plain old JavaScript objects without imposing any intermediate data structure, this makes it extremely easy for consumption, blazingly fast and is future proof with data binding by Object.observe.
+            <p>It is an important consideration that Object Graph is of plain old JavaScript objects without imposing any intermediate data structure, this makes it extremely easy for consumption, blazing fast and is future proof with data binding by Object.observe.
               expiration is by adding a few additional <em>meta properties</em>, even granular cache control for each objects is feasible.</p>
             <script src="https://gist.github.com/745a098c1533c145ec23.js"></script>
             <h2 id="query">Query</h2> 
@@ -169,14 +169,14 @@
               <li>rather than querying all requested resource, reduce the number of queries by checking if the queried components already exists in cache and is not expired yet.</li>
               <li>rather than sending a request per query, reduce the number of requests by joining multiple queries into fewer batched queries that are sent periodically.</li>
             </ul>
-            <p>In the above example, if you have queried for <code>user!troopjs.repos</code> moments ago, this object will be returned immediately served from cache, eliminating the need for querying the server again, a significant benefit comming from the
+            <p>In the above example, if you have queried for <code>user!troopjs.repos</code> moments ago, this object will be returned immediately served from cache, eliminating the need for querying the server again, a significant benefit coming from the
               fact that since cache reducing is transparent for the query service, mock server communication is as simple as populating the cache:</p>
             <script src="https://gist.github.com/def16e04f6439aa47f7d.js"></script>
             <h2 id="cache-expiration">Cache Expiration</h2> 
-            <p>The GC is an optional optimizational service provided by <code>data/cache/service</code> that take cares of de-referencing any expired objects from cache to free out memories, it implements a generation-based algorithms for efficiently determinate
+            <p>The GC is an optional optimization service provided by <code>data/cache/service</code> that take cares of de-referencing any expired objects from cache to free out memories, it implements a generation-based algorithms for efficiently determinate
               expired objects, each GC run should have very little impact on performance. The GC will be running automatically as soon as the service is started.</p>
             <h2 id="persisted-cache">Persisted Cache</h2> 
-            <p>The built-in cache component is memory-based, but it&#39;s fairly easy to implement a cache component powered by persisted storage, as an example for landing cache in localstorage, checkout <code>opt/store/component</code> and
+            <p>The built-in cache component is memory-based, but it&#39;s fairly easy to implement a cache component powered by persisted storage, as an example for landing cache in local storage, checkout <code>opt/store/component</code> and
               <code>contrib-browser/contrib-browser/store/adapter/local</code> for details.</p>
             <hr>
             <div class="alert">

@@ -149,14 +149,14 @@
                 <a href="http://requirejs.org/docs/plugins.html">plugins</a> that expands the possibility to load various types of resources.</p>
             </blockquote>
             <h2 id="load-json">Load JSON</h2> 
-            <p>The <code>troopjs-requirejs/json</code> plugin allows you to select arbitary properties from a JSON file loaded. The following is
-              <code>troopjs/version</code> module that examplify it&#39;s usage.</p>
+            <p>The <code>troopjs-requirejs/json</code> plugin allows you to select arbitrary properties from a JSON file loaded. The following is
+              <code>troopjs/version</code> module that exemplify it&#39;s usage.</p>
             <pre><code class="language-js">define(<span class="string">"troopjs/version"</span>, [ <span class="string">"json!./bower.json#version"</span>  ], <span class="function"><span class="keyword">function</span>  <span class="params">(version)</span>  {</span> 
   <span class="keyword">return</span>  version;
 });</code></pre>
             <h2 id="amdify-your-module">AMDify your module</h2> 
-            <p>The <code>troopjs-requirejs/shadow</code> plugin wrap any non-AMD module with your specified variable deps and exports, it works by loading JavaScript source from ajax, so be aware it is constrainted by same-origin-policy unless you&#39;re working
-              with an optimized bundle.</p>
+            <p>The <code>troopjs-requirejs/shadow</code> plugin wrap any non-AMD module with your specified dependency variables and <code>exports</code>, it works by loading JavaScript source from ajax, so be aware it is constrained by same-origin-policy unless
+              you&#39;re working with an optimized bundle.</p>
             <p>The following example AMDify the bootstrap tooltip module under path <code>bootstrap.tooltip</code> which depends on the <code>jquery</code>
               AMD module.</p>
             <pre><code class="language-js">define(<span class="string">"my-tooltip"</span>, [<span class="string">"shadow!bootstrap.tooltip#jQuery=jquery"</span> ], <span class="function"><span class="keyword">function</span> <span class="params">(Tooltip)</span> {</span> });</code></pre>
@@ -165,8 +165,8 @@
             <p>The other example AMDify backbone.js which depends on <code>jquery</code> and exports the <code>Backbone</code> variable.</p>
             <pre><code class="language-js">require([<span class="string">"shadow!backbone#jQuery=jquery&amp;exports=Backbone"</span> ], <span class="function"><span class="keyword">function</span> <span class="params">(Backbone)</span> {</span> });</code></pre>
             <h2 id="load-multiple-versions-of-troopjs">Load multiple versions of TroopJS</h2> 
-            <p>Do you know requirejs has a
-              <a href="http://requirejs.org/docs/1.0/docs/api.html#multiversion">context</a> concept which allows for you to two different &quot;generations&quot; of module versions on the same page, TroopJS utilize this feature to bridge two versions of TroopJS (like a wormhole) that are considered incompitble, this
+            <p>RequireJS supports for the
+              <a href="http://requirejs.org/docs/1.0/docs/api.html#multiversion">context</a> feature which allows for you to two different &quot;generations&quot; of module versions on the same page, TroopJS utilize this feature to bridge two versions of TroopJS (like a wormhole) that are considered incompatible, this
               would not be possible without <code>troopjs-requirejs/multiversion</code>
               plugin which basically allows one module to be required from within a different context, eventually referencing it.</p>
             <pre><code class="language-js">require([<span class="string">"troopjs-opt/pubsub/proxy/to1x"</span>, <span class="string">"mv!troopjs-core/pubsub/hub#troopjs-1.0"</span> ], <span class="function"><span class="keyword">function</span>  <span class="params">(HubProxy, v1Hub)</span>  {</span> 
@@ -181,7 +181,7 @@
   });
 });</code></pre>
             <p>The above example maps hub messages from TroopJS 1.x version to new names in TroopJS 3.x, loading <code>troopjs-core/pubsub/hub</code>
-              from the &quot;1.x&quot; requirejs context.</p>
+              from the &quot;1.x&quot; context.</p>
             <hr>
             <div class="alert">
               <p>Find an error?

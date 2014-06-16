@@ -133,69 +133,17 @@
         <div class="col col-lg-9">
           <div class="panel panel-docs">
             <h2 id="first-troopjs-app">First TroopJS App</h2> 
-            <p>After the succesful installation of TroopJS, let&#39;s start by creating a simplest application.</p>
+            <p>After the successful installation of TroopJS, let&#39;s start by creating a simplest application.</p>
             <ul>
               <li>
-                <p>We create the widget <code>app/kickoff</code> that is a <code>troopjs-dom/component/widget</code> component started by the application, which renders some greating text, which is declared as the <code>data-weave</code> attribute on body element.</p>
+                <p>We create the widget <code>app/kickoff</code> that is a <code>troopjs-dom/component/widget</code> component started by the application, which renders some greeting text, which is declared as the <code>data-weave</code> attribute on body element.</p>
               </li>
               <li>
                 <p>We bootstrap the application by creating a <code>troopjs-dom/application/widget</code> component that lives on the top-level page element (<code>html</code> element) that is responsible for weaving all page components like the above <code>app/kickoff</code> one.</p>
               </li>
             </ul>
-            <p>Now when you load the page you should notice the welcome message which indicate TroopJS has successfully bootstraped.</p>
-            <pre><code class="language-html">&lt;!DOCTYPE HTML&gt;
-&lt;html&gt;
-&lt;head&gt;
-  &lt;title&gt;TroopJS Kickoff&lt;/title&gt;
-  &lt;meta charset=&quot;UTF-8&quot;&gt;
-  &lt;meta&gt;
-  &lt;script src=&quot;bower_components/requirejs/require.js&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
-  &lt;script&gt;
-    require.config({
-      baseUrl: &#39;bower_components&#39;,
-      // define all package layout for all troopjs dependencies
-      packages: [
-        {
-          name: &#39;jquery&#39;,
-          main: &#39;dist/jquery.js&#39;
-        },
-        {
-          name: &#39;poly&#39;,
-          main: &#39;poly.js&#39;
-        },
-        {
-          name: &#39;requirejs&#39;,
-          main: &#39;require.js&#39;
-        },
-        {
-          name: &#39;when&#39;,
-          main: &#39;when.js&#39;
-        },
-        {
-          name: &#39;troopjs&#39;,
-          main: &#39;maxi.js&#39;
-        }
-      ],
-      deps: [&#39;troopjs&#39;],
-      callback: function () {
-        require([&#39;troopjs-dom/application/widget&#39;, &#39;jquery&#39;], function (app, $) {
-          app($(&#39;html&#39;)).start();
-        });
-      }
-    });
-    define(&#39;app/kickoff&#39;, [&#39;troopjs-dom/component/widget&#39;], function (Widget) {
-      return Widget.extend({
-        &quot;sig/start&quot;: function () {
-          this.html(&#39;Hello TroopJS!&#39;);
-        }
-      });
-    });
-  &lt;/script&gt;
-&lt;/head&gt;
-&lt;body data-weave=&quot;app/kickoff&quot;&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+            <p>Now when you load the page you should notice the welcome message which indicate TroopJS has bootstrapped successfully.</p>
+            <script src="https://gist.github.com/6c79faa734cf023b964a.js"></script>
             <hr>
             <div class="alert">
               <p>Find an error?

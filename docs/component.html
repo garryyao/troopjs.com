@@ -138,14 +138,14 @@
             <p>Components are typically categorized into <strong>two types</strong>, that are either <strong>widgets</strong>  that interact with the UI, or
               <strong>services</strong>  that works behind the scene for serving requests.</p>
             <h2 id="component">Component</h2> 
-            <p>Components are no more than regular AMD module that exports the <code>constructor</code> function to instantiate component object. A component is created by <strong>extending</strong>  from any existing component in TroopJS, to examplify we&#39;re
+            <p>Components are no more than regular AMD module that exports the <code>constructor</code> function to instantiate component object. A component is created by <strong>extending</strong>  from any existing component in TroopJS, to exemplify we&#39;re
               to extend from
               <code>troopjs-core/component/base</code> - the very basis ancestor component, passing in a function which serves as the constructor (no <code>new</code> keyword when creating the component), and one or more <strong>specs</strong>  object, whose
               properties will be mixed into the component properties. So far your ever familiarized JavaScript concepts.</p>
             <script src="https://gist.github.com/252765ac60d9abc850e4.js"></script>
             <p>To distinguish with regular JavaScript object, components in TroopJS has <strong>life cycle</strong>, which provides component the flexibility to behave differently based on the which <strong>phase</strong>  it is currently in, one example is
-              a DOM component that is instantiated would neither listen to DOM events nor to render until the component is eventually attached to DOM tree, or even compilcated precondition like waiting for data to be loaded.</p>
-            <p>Since constructor can only create component the synchronous way, an asynchronous procedure of &quot;activating&quot; a component is refered in TroopJS as &quot;starting&quot;, which is basically specials that transit component phases from
+              a DOM component that is instantiated would neither listen to DOM events nor to render until the component is eventually attached to DOM tree, or even complicated precondition like waiting for server data to be loaded.</p>
+            <p>Since constructor can only create component the synchronous way, an asynchronous procedure of &quot;activating&quot; a component is referred in TroopJS as &quot;starting&quot;, which is basically specials that transit component phases from
               &quot;initialize&quot; to eventually &quot;started&quot;, eventually consider the component activated.</p>
             <script src="https://gist.github.com/083d0766d8ebbe72e32f.js"></script>
             <p>In above example, the special <code>sig/start</code> method sends an asynchronous ajax request which yields a promise, which is returned to the call of <code>component#start</code>, we are telling TroopJS to trigger the component&#39;s start
@@ -156,11 +156,11 @@
             <p>Specials prefixed with <code>sig</code> are &quot;signals&quot; that are handlers primarily for framework&#39;s internal events, like component&#39;s life-cycle change. Signal&#39;s usage are not limited to the framework, it&#39;s also suitable
               for inventing extension points of a component that can be optionally handled by the implementation.</p>
             <script src="https://gist.github.com/c591a981744562a08492.js"></script>
-            <p>Special like signals are distinguished from a regular method not only from it&#39;s signature, but also the fact that these methods when overriding in a hierarchial components tree where multiple specials share the same name, the overrided
+            <p>Special like signals are distinguished from a regular method not only from it&#39;s signature, but also the fact that these methods when overriding in a hierarchical components tree where multiple specials share the same name, the overridden
               component&#39;s special function are always called ahead of the special from the base component.</p>
             <script src="https://gist.github.com/6946a2cfba2cb6a58969.js"></script>
             <h2 id="service">Service</h2> 
-            <p>Service is component extends from <code>troopjs-core/component/service</code> that exist primarily to serve other components&#39;s hub requests. Servcies are typically started when boostraping the application.</p>
+            <p>Service is component extends from <code>troopjs-core/component/service</code> that exist primarily to serve other component&#39;s hub requests. Services are typically started when boostraping the application.</p>
             <script src="https://gist.github.com/f2a3435f4107fac979e3.js"></script>
             <hr>
             <div class="alert">

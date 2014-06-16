@@ -151,15 +151,15 @@
             <h2 id="setup-the-bundle">Setup the bundle</h2> 
             <p>clone the bundle
               <a href="https://github.com/troopjs/troopjs">repository</a> first:</p>
-            <pre><code class="language-bash">git clone https://github.com/troopjs/troopjs
-<span class="built_in">cd</span>  troopjs</code></pre>
+            <pre><code class="language-shell">git clone https://github.com/troopjs/troopjs
+cd troopjs</code></pre>
             <p>To install the list of default modules from bower, only core modules will be included as default</p>
-            <pre><code class="language-bash">bower install</code></pre>
+            <pre><code class="language-shell">bower install</code></pre>
             <p>All core modules should now reside in the <code>bower_components</code> directory, this install will also include those 3rd libraries that individual module relies on.</p>
             <h2 id="build-with-grunt">Build with Grunt</h2> 
             <p>TroopJS uses
               <a href="http://gruntjs.com">grunt</a> as the build system, first make sure grunt and all grunt task plugins are installed via NPM.</p>
-            <pre><code class="language-bash">npm install</code></pre>
+            <pre><code class="language-shell">npm install</code></pre>
             <p>Check for available grunt tasks by <code>grunt --help</code> which gives you the list of grunt tasks that powers TroopJS, some primary ones are explained below:</p>
             <ul>
               <li>compile - This task takes different profiles (right now <code>maxi</code> and <code>mini</code>) defined in each a list of included modules, to trace individual ones for it&#39;s module dependencies, eventually put together the bundled script
@@ -183,18 +183,18 @@
               <li>simultaneously run tests on all the captured browsers</li>
             </ul>
             <p>Run tests with phantomJS is the simpliest way of verying all tests are green, which is available as grunt task <code>test</code>, if it&#39;s your first time of running this command buster and phantomJS will be installed which will take a while.</p>
-            <pre><code class="language-bash">grunt test</code></pre>
+            <pre><code class="language-shell">grunt test</code></pre>
             <p>Run only specific tests statically in one browser is handy for debugging and trouble shoot test failures, launch <code>buster-static</code>
               and point your browser to printed runner URL.</p>
-            <pre><code class="language-bash">buster-static
-Starting server on http://localhost:<span class="number">8282</span> /</code></pre>
+            <pre><code class="language-shell">buster-static
+Starting server on http://localhost:8282/</code></pre>
             <p>You can also specify glob pattern that filters down the tests further and to run only those tests, e.g. the following is to run only tests from <code>troopjs-core</code> module.</p>
-            <pre><code class="language-bash">buster-static -t <span class="string">"/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js"</span> </code></pre>
+            <pre><code class="language-shell">buster-static -t &quot;/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js&quot;</code></pre>
             <p>To run tests simutaneously with captured browsers you should instead launch <code>buster-server</code>, open the runner page with your concerned browsers and click for &quot;capture&quot;.</p>
-            <pre><code class="language-bash">buster-server
-buster-server running on http://localhost:<span class="number">1111</span> </code></pre>
+            <pre><code class="language-shell">buster-server
+buster-server running on http://localhost:1111</code></pre>
             <p>Then you can run tests from command line like the above with static runner.</p>
-            <pre><code class="language-bash">buster-static -t <span class="string">"/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js"</span> </code></pre>
+            <pre><code class="language-shell">buster-static -t &quot;/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js&quot;</code></pre>
             <p>When adding more tests be aware that all tests shall be within the <code>test</code> directory for each module, each subjected component shall has a corresponding test suite file of it&#39;s own, filename must be suffixed by <code>-test</code>,
               for instance the test suite file for <code>troopjs-browser/component/widget</code> would be <code>troopjs-browser/test/component/widget-test</code>.</p>
             <p>If in your tests other dependent scripts are to be required, they have to appear inside the <code>libs</code> or <code>resources</code>

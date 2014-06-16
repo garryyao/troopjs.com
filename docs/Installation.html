@@ -149,76 +149,22 @@ $ unzip DOWNLOADED_FILE_NAME.zip</code></pre>
             <h3 id="load-troopjs-on-your-page">Load TroopJS on your page</h3> 
             <p>Since TroopJS is all of AMD modules, it&#39;s recommended to use
               <a href="http://requirejs.org/docs/api.html#packages">requireJS package</a> 
-              to locate all module dependencies, the following HTML page examplify the configuration:</p>
-            <pre><code class="language-js">&lt;!DOCTYPE HTML&gt;
-<span class="xml"><span class="tag">&lt;<span class="title">html</span> &gt;</span> 
-<span class="tag">&lt;<span class="title">head</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">title</span> &gt;</span> TroopJS App<span class="tag">&lt;/<span class="title">title</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">meta</span>  <span class="attribute">charset</span> =<span class="value">"UTF-8"</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">meta</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">script</span>  <span class="attribute">src</span> =<span class="value">"bower_components/requirejs/require.js"</span> &gt;</span> <span class="javascript"></span> <span class="tag">&lt;/<span class="title">script</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">script</span> &gt;</span> <span class="javascript">
-    require.config({
-      baseUrl: <span class="string">'bower_components'</span>,
-      <span class="comment">// define package layout for all dependencies.</span> 
-      packages: [
-        {
-          name: <span class="string">'jquery'</span>,
-          main: <span class="string">'dist/jquery.js'</span> 
-        },
-        {
-          name: <span class="string">'poly'</span>,
-          main: <span class="string">'poly.js'</span> 
-        },
-        {
-          name: <span class="string">'requirejs'</span>,
-          main: <span class="string">'require.js'</span> 
-        },
-        {
-          name: <span class="string">'when'</span>,
-          main: <span class="string">'when.js'</span> 
-        },
-        {
-          name: <span class="string">'troopjs'</span>,
-          main: <span class="string">'maxi.js'</span> 
-        }
-      ],
-      deps: [<span class="string">'troopjs'</span> ]
-    });
-  </span> <span class="tag">&lt;/<span class="title">script</span> &gt;</span> 
-<span class="tag">&lt;/<span class="title">head</span> &gt;</span> 
-<span class="tag">&lt;<span class="title">body</span> &gt;</span> 
-<span class="tag">&lt;/<span class="title">body</span> &gt;</span> 
-<span class="tag">&lt;/<span class="title">html</span> &gt;</span> </span> </code></pre>
+              to locate all module dependencies, the following HTML page exemplify the configuration:</p>
+            <script src="https://gist.github.com/0849a60caa0f89155611.js"></script>
             <p>To verify TroopJS bundle modules are actually loaded, issue the following line on the page:</p>
             <pre><code class="language-js">require(<span class="string">'troopjs/version'</span> ) <span class="comment">// 3.0.0 - 1 (the TroopJS bundle version)</span> </code></pre>
             <h2 id="install-troopjs-individual-modules">Install TroopJS individual modules</h2> 
-            <p>Using TroopJS from the bundle might not always be the option in certain senarios:</p>
+            <p>Using TroopJS from the bundle might not always be the option in certain scenarios:</p>
             <ul>
               <li>when you need to debug TroopJS source</li>
-              <li>when you need to selectly pick modules, even to control what exact module version to use</li>
+              <li>when you need to selectively pick modules, even to control what exact module version to use</li>
               <li>when you need to install troopjs-contrib-* modules</li>
               <li>when you need to bundle troopjs as part of your application code</li>
             </ul>
-            <p>Since TroopJS is highly modualized and AMD compatible, you can specify individual dependencies in your bower.json file, e.g. the following config put restraints over some browser-related troop modules while staying loose with the other core+
+            <p>Since TroopJS is highly modularized and AMD compatible, you can specify individual dependencies in your bower.json file, e.g. the following config put restraints over some browser-related troop modules while staying loose with the other core+
               modules:</p>
-            <pre><code class="language-js">{
-  <span class="string">"name"</span>: <span class="string">"app"</span>,
-  <span class="string">"version"</span>: <span class="string">"0.0.0"</span>,
-  <span class="string">"description"</span>: <span class="string">"TroopJS app"</span>,
-  <span class="string">"dependencies"</span>: {
-    <span class="string">"troopjs-compose"</span>: <span class="string">""</span>,
-    <span class="string">"troopjs-core"</span>: <span class="string">""</span>,
-    <span class="string">"troopjs-log"</span>: <span class="string">""</span>,
-    <span class="string">"troopjs-net"</span>: <span class="string">""</span>,
-    <span class="string">"troopjs-jquery"</span>: <span class="string">""</span>,
-    <span class="string">"troopjs-requirejs"</span>: <span class="string">""</span>,
-    <span class="string">"troopjs-dom"</span>: <span class="string">"5.1.4"</span>,
-    <span class="string">"troopjs-data"</span>: <span class="string">"4.0.3"</span>,
-    <span class="string">"troopjs-opt"</span>: <span class="string">"1.0.3"</span> 
-  }
-}</code></pre>
-            <p>Then issue the <code>bower install</code> shall give you all required dependencies installed, including all 3rd-party libraries that individual module reles on.</p>
+            <script src="https://gist.github.com/f557daef26b731463b50.js"></script>
+            <p>Then issue the <code>bower install</code> shall give you all required dependencies installed, including all 3rd-party libraries that individual module relies on.</p>
             <blockquote>
               <p>Note: You may get prompted from bower version conflicts warning if peer dependencies versions are not satisfied, you can resort to the &quot;resolutions&quot; field to resolve
                 <a href="https://github.com/bower/bower/wiki/Rewrite-state">version conflicts</a> 
@@ -226,47 +172,7 @@ $ unzip DOWNLOADED_FILE_NAME.zip</code></pre>
             </blockquote>
             <p>Now with the same requireJS configuration above, with only a small modification (git grid of the &#39;troopjs&#39; package definition section), the page will load with all TroopJS modules loaded from source with module path resolved as their
               package location.</p>
-            <pre><code class="language-js">&lt;!DOCTYPE HTML&gt;
-<span class="xml"><span class="tag">&lt;<span class="title">html</span> &gt;</span> 
-<span class="tag">&lt;<span class="title">head</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">title</span> &gt;</span> TroopJS App<span class="tag">&lt;/<span class="title">title</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">meta</span>  <span class="attribute">charset</span> =<span class="value">"UTF-8"</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">meta</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">script</span>  <span class="attribute">src</span> =<span class="value">"bower_components/requirejs/require.js"</span> &gt;</span> <span class="javascript"></span> <span class="tag">&lt;/<span class="title">script</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">script</span>  <span class="attribute">src</span> =<span class="value">"main.js"</span> &gt;</span> <span class="javascript"></span> <span class="tag">&lt;/<span class="title">script</span> &gt;</span> 
-  <span class="tag">&lt;<span class="title">script</span> &gt;</span> <span class="javascript">
-    require.config({
-      baseUrl: <span class="string">'bower_components'</span>,
-      <span class="comment">// define AMD package layout for all dependencies.</span> 
-      packages: [
-        {
-          name: <span class="string">'jquery'</span>,
-          main: <span class="string">'dist/jquery.js'</span> 
-        },
-        {
-          name: <span class="string">'poly'</span>,
-          main: <span class="string">'poly.js'</span> 
-        },
-        {
-          name: <span class="string">'requirejs'</span>,
-          main: <span class="string">'require.js'</span> 
-        },
-        {
-          name: <span class="string">'when'</span>,
-          main: <span class="string">'when.js'</span> 
-        }
-      ],
-      callback: <span class="function"><span class="keyword">function</span>  <span class="params">()</span>  {</span> 
-        require([<span class="string">'troopjs-dom/application/widget'</span>, <span class="string">'jquery'</span> ], <span class="function"><span class="keyword">function</span>  <span class="params">(app, $)</span>  {</span> 
-          app($(<span class="string">'html'</span> )).start();
-        });
-      }
-    });
-  </span> <span class="tag">&lt;/<span class="title">script</span> &gt;</span> 
-<span class="tag">&lt;/<span class="title">head</span> &gt;</span> 
-<span class="tag">&lt;<span class="title">body</span>  <span class="attribute">data-weave</span> =<span class="value">"app/kickoff"</span> &gt;</span> 
-<span class="tag">&lt;/<span class="title">body</span> &gt;</span> 
-<span class="tag">&lt;/<span class="title">html</span> &gt;</span> </span> </code></pre>
+            <script src="https://gist.github.com/9dc9b9d2f450b684bd6d.js"></script>
             <h3 id="yeoman-generator">Yeoman Generator</h3> 
             <p>Install TroopJS the most laziest way is to use
               <a href="http://yeoman.io/">yeoman</a> generator which takes care of scaffolding and generating the minimal amount of code for an initial state:</p>
@@ -275,21 +181,8 @@ $ npm install generator-troopjs</code></pre>
             <p>To generate a TroopJS application:</p>
             <pre><code class="language-shell">$ cd $app
 $ yo troopjs</code></pre>
-            <p>By answering a few questions, generator gives you a conventional application scaffold where you can start from:</p>
-            <pre><code>.
-|-- Gruntfile.js
-|-- README.md
-|-- bower.json
-|-- index.html
-|-- main.js
-|-- package.json
-`-- widget
-    |-- README
-    |-- controller.js
-    `-- initialization
-        |-- main.css
-        `-- main.js
-2 directories, 10 files</code></pre>
+            <p>By answering a few questions, generator shall give you the following application scaffold where you can start from:</p>
+            <script src="https://gist.github.com/a5c6b4bfa700072cb129.js"></script>
             <hr>
             <div class="alert">
               <p>Find an error?
