@@ -7,15 +7,14 @@ order: 2
 
 ## First TroopJS App
 
-After the successful installation of TroopJS, let's start by creating a simplest application.
+Now that you've successfully installed TroopJS, let's start by creating a simple application.
 
- - We create the widget `app/kickoff` that is a `troopjs-dom/component/widget` component started by the application,
-which renders some greeting text, which is declared as the `data-weave` attribute on body element.
+ - Let's create a widget called `app/kickoff`, a `troopjs-dom/component/widget` started by the application. It will render some greeting text that's declared as the `data-weave` attribute on the body element.
 
- - We bootstrap the application by creating a `troopjs-dom/application/widget` component that lives on the top-level page
-element (`html` element) that is responsible for weaving all page components like the above `app/kickoff` one.
+ - We then bootstrap the application by creating a `troopjs-dom/application/widget` component that lives on the top-level page
+element (`html` element). This widget will be responsible for weaving all page components such as the above `app/kickoff` one.
 
 
-Now when you load the page you should notice the welcome message which indicate TroopJS has bootstrapped successfully.
+You're off to a great start when you see that the welcome message indicates that TroopJS has bootstrapped successfully when you load the page.
 
 {{ gist '6c79faa734cf023b964a'}}
