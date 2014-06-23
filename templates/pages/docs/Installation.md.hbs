@@ -7,25 +7,25 @@ order: 1
 
 ## Install TroopJS bundle
 
-TroopJS bundles are pre-built scripts that has all predefined modules included.
+TroopJS bundles are pre-built scripts that has all the predefined modules included.
 
 ### Download
 
-The easiest way of fetching TroopJS bundle is by using [bower](http://bower.io/), if you haven't installed it yet:
+The easiest way to fetch TroopJS bundle is through [bower](http://bower.io/). If you haven't installed [bower](http://bower.io/) yet: 
 ```shell
 $ (sudo) npm install -g bower
 $ cd $app
 $ bower init
 ```
 
-To install TroopJS and all its dependencies from your project dir:
+To install TroopJS and its dependencies from your project dir:
 
 ```shell
 $ cd $app
 $ bower install requirejs when poly jquery troopjs#~3.0.0
 ```
 
-Otherwise you may want to download the latest release bundle and to extract it in your prefered directory.
+Otherwise you may download the latest release bundle and extract it in your prefered directory.
 
 ```shell
 $ curl -L -O https://api.github.com/repos/troopjs/troopjs/zipball/3.0.0
@@ -34,12 +34,12 @@ $ unzip DOWNLOADED_FILE_NAME.zip
 
 ### Load TroopJS on your page
 
-Since TroopJS is all of AMD modules, it's recommended to use [requireJS package](http://requirejs.org/docs/api.html#packages)
-to locate all module dependencies, the following HTML page exemplify the configuration:
+Since TroopJS makes use of AMD modules, we recommend the use of [requireJS package](http://requirejs.org/docs/api.html#packages)
+to locate all module dependencies. The following HTML page exemplifies the configuration:
 
 {{ gist '0849a60caa0f89155611'}}
 
-To verify TroopJS bundle modules are actually loaded, issue the following line on the page:
+To verify that the TroopJS bundle modules are actually loaded, issue the following line on the page:
 
 ```js
 require('troopjs/version') // 3.0.0 - 1 (the TroopJS bundle version)
@@ -48,32 +48,32 @@ require('troopjs/version') // 3.0.0 - 1 (the TroopJS bundle version)
 
 ## Install TroopJS individual modules
 
-Using TroopJS from the bundle might not always be the option in certain scenarios:
+Using TroopJS from the bundle might not always be the ideal option in certain scenarios:
  - when you need to debug TroopJS source
- - when you need to selectively pick modules, even to control what exact module version to use
+ - when you need to selectively pick modules, or control the exact module version to use
  - when you need to install troopjs-contrib-* modules
  - when you need to bundle troopjs as part of your application code
 
-Since TroopJS is highly modularized and AMD compatible, you can specify individual dependencies in your bower.json file,
-e.g. the following config put restraints over some browser-related troop modules while staying loose with the other
+Since TroopJS is highly modularized and AMD compatible, you can specify individual dependencies in your bower.json file. 
+For example, the following config puts restraints over some browser-related troop modules while staying loose with the other
 core+ modules:
 
 {{ gist 'f557daef26b731463b50'}}
 
-Then issue the `bower install` shall give you all required dependencies installed, including all 3rd-party libraries
-that individual module relies on.
+The config provided followed by `bower install` will give you the required dependencies installed as well as 3rd-party libraries
+that an individual module relies on.
 
-> Note: You may get prompted from bower version conflicts warning if peer dependencies versions are not satisfied,
-> you can resort to the "resolutions" field to resolve [version conflicts](https://github.com/bower/bower/wiki/Rewrite-state)
+> Note: You will get prompted by bower about version conflicts if peer dependency versions are not satisfied.
+> If it happens, you can resort to the "resolutions" field to resolve [version conflicts](https://github.com/bower/bower/wiki/Rewrite-state)
 
-Now with the same requireJS configuration above, with only a small modification (git grid of the 'troopjs' package definition
+With the same requireJS configuration above plus a small modification (git grid of the 'troopjs' package definition
 section), the page will load with all TroopJS modules loaded from source with module path resolved as their package location.
 
 {{ gist '9dc9b9d2f450b684bd6d'}}
 
 ### Yeoman Generator
 
-Install TroopJS the most laziest way is to use [yeoman](http://yeoman.io/) generator which takes care of scaffolding
+The laziest way to install TroopJS is to use [yeoman](http://yeoman.io/) generator which will take  care of scaffolding
 and generating the minimal amount of code for an initial state:
 
 ```shell
@@ -88,6 +88,6 @@ $ cd $app
 $ yo troopjs
 ```
 
-By answering a few questions, generator shall give you the following application scaffold where you can start from:
+After answering a few questions, the generator shall give you the following application scaffold where you can start from:
 
 {{ gist 'a5c6b4bfa700072cb129'}}
