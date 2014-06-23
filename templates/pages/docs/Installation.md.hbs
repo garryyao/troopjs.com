@@ -11,7 +11,7 @@ TroopJS bundles are pre-built scripts that has all the predefined modules includ
 
 ### Download
 
-The easiest way to fetch TroopJS bundle is through [bower](http://bower.io/). If you haven't installed [bower](http://bower.io/) yet: 
+The easiest way to fetch the TroopJS bundle is through [bower](http://bower.io/). If you haven't installed [bower](http://bower.io/) yet: 
 ```shell
 $ (sudo) npm install -g bower
 $ cd $app
@@ -48,7 +48,7 @@ require('troopjs/version') // 3.0.0 - 1 (the TroopJS bundle version)
 
 ## Install TroopJS individual modules
 
-Using TroopJS from the bundle might not always be the ideal option in certain scenarios:
+In certain scenarios it may not be ideal to use the TroopJS bundle:
  - when you need to debug TroopJS source
  - when you need to selectively pick modules, or control the exact module version to use
  - when you need to install troopjs-contrib-* modules
@@ -60,7 +60,7 @@ core+ modules:
 
 {{ gist 'f557daef26b731463b50'}}
 
-The config provided followed by `bower install` will give you the required dependencies installed as well as 3rd-party libraries
+The config provided followed by `bower install` will install the required `troopjs-*` dependencies as well as all required 3rd-party libraries
 that an individual module relies on.
 
 > Note: You will get prompted by bower about version conflicts if peer dependency versions are not satisfied.
@@ -88,6 +88,6 @@ $ cd $app
 $ yo troopjs
 ```
 
-After answering a few questions, the generator shall give you the following application scaffold where you can start from:
+After answering a few questions, the generator will give you the following application scaffold where you can start from:
 
 {{ gist 'a5c6b4bfa700072cb129'}}
