@@ -1,6 +1,6 @@
 {
   "name": "troopjs.com",
-  "description": "TroopJS website generated from reusable templates and data by Assemble",
+  "description": "TroopJS website generated from templates and markdown powered by Assemble",
   "version": "0.0.0",
   "homepage": "http://troopjs.com",
   "author": {
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/troopjs/troopjs.com"
+    "url": "https://github.com/troopjs/troopjs.github.io"
   },
   "engines": {
     "node": ">= 0.8.0"
