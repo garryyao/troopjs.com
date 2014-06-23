@@ -2,9 +2,49 @@
 // Navbar
 // --------------------------------------------------
 
+@navbar-height: 80px;
+// Navbar
+.navbar {
+  // Override bootstrap styles and extend
+  // with new styles
+  &:extend(
+    .navbar,
+    .navbar-fixed-top all
+  );
+  &.hidden:extend(.navbar.hidden) {
+  }
+  &.visible:extend(.navbar.visible) {
+  }
+  &:hover {
+    background: #fff;
+  }
+  .box-shadow(0 0 5px rgba(0, 0, 0, .15));
+  border-radius: 0;
 
+  // Increase icon size
+  .navbar-nav > li > a .glyphicon {
+    font-size: 24px;
+    float: left; // float to remove space around icon
+  }
 
+  .navbar-brand {
+    height: @navbar-height;
+    .icon-brand {
+      color: @brand-primary;
+      font-size: 60px;
+      line-height: @navbar-height;
+    }
+  }
 
+  .navbar-nav > .active > a {
+    &, &:hover, &:focus {
+      text-shadow: none;
+      background-color: #fff;
+    }
+  }
+  // Add transition effect to navbar for show/hide
+  .navbar-transitions();
+}
 
 // Navbar Transitions
 // ---------------------------------
@@ -38,38 +78,3 @@
 .navbar-fixed-top {
   top: 0;
 }
-
-// Navbar
-.navbar {
-  // Override bootstrap styles and extend
-  // with new styles
-  &:extend(
-    .navbar,
-    .navbar-fixed-top all
-  );
-  &.hidden:extend(.navbar.hidden) {}
-  &.visible:extend(.navbar.visible) {}
-  &:hover {
-    background: #fff;
-  }
-  .box-shadow(0 0 5px rgba(0,0,0,.15));
-  border-radius: 0;
-
-  // Increase icon size
-  .navbar-nav > li > a .glyphicon {
-    font-size: 24px;
-    float: left; // float to remove space around icon
-  }
-  .navbar-brand {
-    height: 80px;
-  }
-  .navbar-nav > .active > a {
-    &, &:hover, &:focus {
-      text-shadow: none;
-      background-color: #fff;
-    }
-  }
-  // Add transition effect to navbar for show/hide
-  .navbar-transitions();
-}
-
