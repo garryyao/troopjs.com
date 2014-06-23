@@ -48,7 +48,8 @@
             <span class="icon-bar"></span> 
             <span class="icon-bar"></span> 
           </button>
-          <a href="../docs/" class="navbar-brand" style="background: url(../assets/img/brand.png) transparent no-repeat;">
+          <a href="../docs/" class="navbar-brand">
+            <span class="icon-brand"></span> 
             Troop.JS
           </a> 
         </div>
@@ -133,16 +134,17 @@
         <div class="col col-lg-9">
           <div class="panel panel-docs">
             <h2 id="first-troopjs-app">First TroopJS App</h2> 
-            <p>After the successful installation of TroopJS, let&#39;s start by creating a simplest application.</p>
+            <p>Now that you&#39;ve successfully installed TroopJS, let&#39;s start by creating a simple application.</p>
             <ul>
               <li>
-                <p>We create the widget <code>app/kickoff</code> that is a <code>troopjs-dom/component/widget</code> component started by the application, which renders some greeting text, which is declared as the <code>data-weave</code> attribute on body element.</p>
+                <p>Let&#39;s create a widget called <code>app/kickoff</code>, a <code>troopjs-dom/component/widget</code> started by the application. It will render some greeting text that&#39;s declared as the <code>data-weave</code> attribute on the body element.</p>
               </li>
               <li>
-                <p>We bootstrap the application by creating a <code>troopjs-dom/application/widget</code> component that lives on the top-level page element (<code>html</code> element) that is responsible for weaving all page components like the above <code>app/kickoff</code> one.</p>
+                <p>We then bootstrap the application by creating a <code>troopjs-dom/application/widget</code> component that lives on the top-level page element (<code>html</code> element). This widget will be responsible for weaving all page components such
+                  as the above <code>app/kickoff</code> one.</p>
               </li>
             </ul>
-            <p>Now when you load the page you should notice the welcome message which indicate TroopJS has bootstrapped successfully.</p>
+            <p>You&#39;re off to a great start when you see that the welcome message indicates that TroopJS has bootstrapped successfully when you load the page.</p>
             <script src="https://gist.github.com/6c79faa734cf023b964a.js"></script>
             <hr>
             <div class="alert">
