@@ -4,15 +4,15 @@ section: modules
 title: troopjs-require
 ---
 
-> Since TroopJS relies on requirejs for AMD, the [troopjs-require](https://github.com/troopjs/troopjs-require) module is
-> to provide you several requirejs [plugins](http://requirejs.org/docs/plugins.html) that expands the possibility to
-> load various types of resources.
+> TroopJS uses requirejs for AMD. Below is a list of [troopjs-require](https://github.com/troopjs/troopjs-require) modules that will 
+> provide you with several requirejs [plugins](http://requirejs.org/docs/plugins.html) to expand your options for 
+> loading various types of resources.
 
+NOTE: Some plugins work by loading JavaScript source via ajax, so be aware that they are constrained by same-origin-policy.
 
 ## Load JSON
 
-The `troopjs-requirejs/json` plugin allows you to select arbitrary properties from a JSON file loaded. The following is
-`troopjs/version` module that exemplify it's usage.
+The `troopjs-requirejs/json` plugin allows you to select arbitrary properties from a loaded JSON file. Below is a `troopjs/version` module as an example: 
 
 ```js
 define("troopjs/version", [ "json!./bower.json#version" ], function (version) {
@@ -20,37 +20,36 @@ define("troopjs/version", [ "json!./bower.json#version" ], function (version) {
 });
 ```
 
-## AMDify your module
+## AMDifying your module
 
-The `troopjs-requirejs/shadow` plugin wrap any non-AMD module with your specified dependency variables and `exports`,
-it works by loading JavaScript source from ajax, so be aware it is constrained by same-origin-policy unless you're
-working with an optimized bundle.
+The `troopjs-requirejs/shadow` plugin allows you to wrap any non-AMD module with dependency variables and `exports` that you've specified- 
 
-The following example AMDify the bootstrap tooltip module under path `bootstrap.tooltip` which depends on the `jquery`
-AMD module.
+Below are some sample methods on how you can use the `troopjs-requirejs/shadow` plugin: 
 
-```js
-define("my-tooltip", ["shadow!bootstrap.tooltip#jQuery=jquery"], function(Tooltip){});
-```
+#Sample method 1 
 
-The following example AMDify bootstrap tooltip module under path `bootstrap.tooltip` which depends on the exports of
-the `jquery` module which is already an AMD one.
+AMDifying a bootstrap tooltip module from `bootstrap.tooltip` via dependency on the exports of
+the `jquery` module which is already AMD.
 
 ```js
 require(["shadow!bootstrap.tooltip#jQuery=jquery"], function(Tooltip){});
 ```
 
-The other example AMDify backbone.js which depends on `jquery` and exports the `Backbone` variable.
+#Sample method 2
+
+AMDifying backbone.js via dependency on `jquery` and exports from  `Backbone` variable.
+
 ```js
 require(["shadow!backbone#jQuery=jquery&exports=Backbone"], function(Backbone){});
 ```
 
 ## Load multiple versions of TroopJS
 
-RequireJS supports for the [context](http://requirejs.org/docs/1.0/docs/api.html#multiversion) feature which allows for
-you to two different "generations" of module versions on the same page, TroopJS utilize this feature to bridge two versions
-of TroopJS (like a wormhole) that are considered incompatible, this would not be possible without `troopjs-requirejs/multiversion`
-plugin which basically allows one module to be required from within a different context, eventually referencing it.
+RequireJS supports the [context](http://requirejs.org/docs/1.0/docs/api.html#multiversion) feature which allows
+you to run two different "generations" of module versions on the same page. Some TroopJS applications utilize the feature to bridge two versions
+of TroopJS (like a wormhole) that are considered incompatible.
+Through the use of `troopjs-requirejs/multiversion`
+plugin, you are able to allow one module to be required from within a different context and eventually reference it.
 
 ```js
 require(["troopjs-opt/pubsub/proxy/to1x", "mv!troopjs-core/pubsub/hub#troopjs-1.0"], function (HubProxy, v1Hub) {
