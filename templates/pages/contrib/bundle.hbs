@@ -4,40 +4,40 @@ section: development
 title: TroopJS Bundle
 ---
 
-> The TroopJS bundle is the deck bearing all rest of modules,
-> which serves various different aspects of development tasks, from creating release files to generating API docs.
+> The TroopJS bundle is the deck that bears all modules
+> that serves various aspects of development tasks-- from creating release files to generating API docs.
 
-TroopJS unlike many other singular libraries, is a highly modularized framework consist of many small, dedicated modules
-that works side-by-side with certain dependencies on each other. The bundle repository instead has no actual functional module,
-but only to glue a selected group of modules together for development and release purpose, thus setup the bundle is the
-initial step of TroopJS development.
+TroopJS, unlike many other singular libraries, is a module-based framework consisting of small, dedicated modules that work side-by-side with certain dependencies with each other. The bundle repository has no actual functional module in it,
+and is there mainly to glue a selected group of modules together for development and release purpose. Thus setting up the bundle is the
+initial step for TroopJS development.
 
-## Setup the bundle
-clone the bundle [repository](https://github.com/troopjs/troopjs) first:
+## Setting up the bundle
+
+Clone the bundle [repository](https://github.com/troopjs/troopjs):
 
 ```shell
 git clone https://github.com/troopjs/troopjs
 cd troopjs
 ```
-To install the list of default modules from bower, only core modules will be included as default
+To install the list of default modules from bower:
 
 ```shell
 bower install
 ```
 
-All core modules should now reside in the `bower_components` directory, this install will also include those 3rd libraries
-that individual module relies on.
+NOTE: Only core modules will be included by default. 
+
+Modules should now reside in the `bower_components` directory, this install will also include third party libraries that individual module rely on.
 
 ## Build with Grunt
 
-TroopJS uses [grunt](http://gruntjs.com) as the build system, first make sure grunt and all grunt task plugins are installed via NPM.
+TroopJS uses [grunt](http://gruntjs.com) for its build system. Make sure grunt and all grunt task plugins are installed via NPM.
 
 ```shell
 npm install
 ```
 
-Check for available grunt tasks by `grunt --help` which gives you the list of grunt tasks that powers TroopJS, some primary
-ones are explained below:
+Check for available grunt tasks by using `grunt --help` which should give you the list of grunt tasks available. Below is a brief description of the most commonly used tasks:
 
  * compile - This task takes different profiles (right now `maxi` and `mini`) defined in each a list of included modules,
 to trace individual ones for it's module dependencies, eventually put together the bundled script will all modules by requirejs
