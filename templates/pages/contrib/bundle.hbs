@@ -7,9 +7,8 @@ title: TroopJS Bundle
 > The TroopJS bundle is the deck that bears all modules
 > that serves various aspects of development tasks-- from creating release files to generating API docs.
 
-TroopJS, unlike many other singular libraries, is a module-based framework consisting of small, dedicated modules that work side-by-side with certain dependencies with each other. The bundle repository has no actual functional module in it,
-and is there mainly to glue a selected group of modules together for development and release purpose. Thus setting up the bundle is the
-initial step for TroopJS development.
+Unlike many other singular libraries, TroopJS is a framework that consists of small, dedicated modules that work side-by-side, with certain dependencies with each other. The bundle repository has no actual functional module in it. 
+It's there to glue a selected group of modules together for development and release purpose. For this particular reason, setting up the bundle is required for TroopJS development.
 
 ## Setting up the bundle
 
@@ -27,7 +26,7 @@ bower install
 
 NOTE: Only core modules will be included by default. 
 
-Modules should now reside in the `bower_components` directory, this install will also include third party libraries that individual module rely on.
+Modules should now reside in the `bower_components` directory, this install will also include third party libraries that individual modules rely on.
 
 ## Build with Grunt
 
@@ -36,24 +35,27 @@ TroopJS uses [grunt](http://gruntjs.com) for its build system. Make sure grunt a
 ```shell
 npm install
 ```
+Below is a list of the most commonly used tasks with its description:
 
-Check for available grunt tasks by using `grunt --help` which should give you the list of grunt tasks available. Below is a brief description of the most commonly used tasks:
+ * compile - The compile task takes different profiles defined in the list (`maxi` and `mini`) of included modules to trace its module dependencies, eventually putting together the bundled script with all modules by requirejs [optimizer](http://requirejs.org/docs/optimization.html). The uncompressed results bundle will be created in `dist` directory.
 
- * compile - This task takes different profiles (right now `maxi` and `mini`) defined in each a list of included modules,
-to trace individual ones for it's module dependencies, eventually put together the bundled script will all modules by requirejs
-[optimizer](http://requirejs.org/docs/optimization.html). The results bundle uncompressed will be created in `dist` directory.
- * test - This task is to run every module's tests with the buster runner backed by phantomJS, tests will be run from command
-line in the head-less browser, fails the task in case any of the tests has failed, and to log rest report on standard output.
- * release - This task is to perform TroopJS release from the current branch, which create TroopJS bundle from the above `compile`
-task, eventually compress it and push the `dist` directory content to an orphan release branch corresponds to the current version.
- * docs - This task generates and assembles JSDuck API documentation for all modules found within the `bower_components` directory.
- * version - This task manages TroopJS versioning with Git tag in semver compliant format.
- * eslint - This task lint for all modules sources found within `bower_components` directory with eslint(http://eslint.org/) rules.
+ * test - The test task is used to run every module's tests using the buster runner backed by phantomJS. Tests are run using a command
+line in the head-less browser. The task fails in case any of the tests fails. In which case, it then logs a rest report on the standard output. 
 
+ * release - The release task is used to perform TroopJS releases from the current branch. This will create a TroopJS bundle from the above `compile`
+task, compress it and then, push the `dist` directory content to an orphan release branch corresponding to the current version. 
+
+ * docs - The docs task generates and assembles JSDuck API documentation for all modules found in the `bower_components` directory. 
+
+ * version - The version task manages TroopJS versioning with Git tag in [semver](http://http://semver.org/) compliant format.
+
+ * eslint - The eslint task lints all modules sources found within the `bower_components` directory using eslint(http://eslint.org/) rules.
+
+NOTE: To see a full list of grunt tasks available, use `grunt --help`. 
 
 ## Test with Buster.JS
 
-TroopJS tests are written and run in [Buster.JS](http://docs.busterjs.org/), all tests can be running in any of the following ways:
+TroopJS tests are written and run in [Buster.JS](http://docs.busterjs.org/). All tests can be run through any of the following ways:
 
  - opening web page with either static browser runner that runs tests in a browser
  - directly through command line with headless browser like phantomJS
