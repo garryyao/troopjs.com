@@ -35,69 +35,72 @@ TroopJS uses [grunt](http://gruntjs.com) for its build system. Make sure grunt a
 ```shell
 npm install
 ```
-Below is a list of the most commonly used tasks with its description:
+Below is a list of the most commonly used tasks with their descriptions:
 
- * compile - The compile task takes different profiles defined in the list (`maxi` and `mini`) of included modules to trace its module dependencies, eventually putting together the bundled script with all modules by requirejs [optimizer](http://requirejs.org/docs/optimization.html). The uncompressed results bundle will be created in `dist` directory.
+ * compile - The compile task takes different profiles (`maxi` and `mini`) that define lists of included modules to trace its module dependencies, eventually putting together the bundled script with all modules by requirejs [optimizer](http://requirejs.org/docs/optimization.html). The uncompressed result bundle will be created in the `dist` directory.
 
- * test - The test task is used to run every module's tests using the buster runner backed by phantomJS. Tests are run using a command
-line in the head-less browser. The task fails in case any of the tests fails. In which case, it then logs a rest report on the standard output. 
+ * test - The test task is used to run every module's tests using the buster runner backed by phantomJS. Tests are executed from the command
+line using a head-less browser. The task fails if any of the tests fails, in which case, it then logs a rest report on the standard output. 
 
  * release - The release task is used to perform TroopJS releases from the current branch. This will create a TroopJS bundle from the above `compile`
 task, compress it and then, push the `dist` directory content to an orphan release branch corresponding to the current version. 
 
- * docs - The docs task generates and assembles JSDuck API documentation for all modules found in the `bower_components` directory. 
+ * docs - The docs task generates and assembles JSDuck API documentation for TroopJS modules. 
 
  * version - The version task manages TroopJS versioning with Git tag in [semver](http://http://semver.org/) compliant format.
 
- * eslint - The eslint task lints all modules sources found within the `bower_components` directory using eslint(http://eslint.org/) rules.
+ * eslint - The eslint task lints all TroopJS sources using eslint(http://eslint.org/) rules.
 
 NOTE: To see a full list of grunt tasks available, use `grunt --help`. 
 
 ## Test with Buster.JS
 
-TroopJS tests are written and run in [Buster.JS](http://docs.busterjs.org/). All tests can be run through any of the following ways:
+TroopJS tests are written in [Buster.JS](http://docs.busterjs.org/). All tests can be executed through any of the following ways:
 
- - opening web page with either static browser runner that runs tests in a browser
- - directly through command line with headless browser like phantomJS
- - simultaneously run tests on all the captured browsers
+ - opening a web page using any static browser runner that runs tests in a browser
+ - directly through a command line using a headless browser like phantomJS
+ - simultaneously running tests on all captured browsers
 
-Run tests with phantomJS is the simpliest way of verying all tests are green, which is available as grunt task `test`,
-if it's your first time of running this command buster and phantomJS will be installed which will take a while.
+NOTE: Out of the methods above, we are inclined to recommend executing the tests using phantomJS as it's available as a grunt task (`test`). Furthermore, it proves to be the simplest way of verifying that all tests are green.  
+
+Running the buster command below will install phantomJS (if it is your first time to do so). Installation might take a while. Patience is a virtue. 
 
 ```shell
 grunt test
 ```
 
-Run only specific tests statically in one browser is handy for debugging and trouble shoot test failures, launch `buster-static`
-and point your browser to printed runner URL.
+Executing specific tests statically in one browser is handy for debugging and trouble shooting test failures. Do so by launching `buster-static`
+and pointing your browser to the printed runner URL.
 
 ```shell
 buster-static
 Starting server on http://localhost:8282/
 ```
 
-You can also specify glob pattern that filters down the tests further and to run only those tests, e.g. the following
-is to run only tests from `troopjs-core` module.
+You may also specify a glob pattern that will allow you to execute a specific test within a filtered module. 
+
+Below is a sample that illustrates how a specific test is run on a filtered module (`troopjs-core`).
 
 ```shell
 buster-static -t "/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js"
 ```
 
-To run tests simutaneously with captured browsers you should instead launch `buster-server`, open the runner page with
-your concerned browsers and click for "capture".
+To run tests simultaneously on captured browsers, you may launch `buster-server`. Open the runner pag, specify your captured browser and click "capture".
 
 ```shell
 buster-server
 buster-server running on http://localhost:1111
 ```
 
-Then you can run tests from command line like the above with static runner.
+You can then run tests using a command line like so with a static runner: 
 
 ```shell
 buster-static -t "/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js"
 ```
 
-When adding more tests be aware that all tests shall be within the `test` directory for each module, each subjected component
+NOTE: If you want to add tests, please follow these guidelines: 
+
+- be aware that all tests shall be within the `test` directory for each module, each subjected component
 shall has a corresponding test suite file of it's own, filename must be suffixed by `-test`, for instance the test suite file
 for `troopjs-browser/component/widget` would be `troopjs-browser/test/component/widget-test`.
 
