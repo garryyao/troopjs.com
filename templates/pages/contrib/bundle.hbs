@@ -85,28 +85,26 @@ Below is a sample that illustrates how a specific test is run on a filtered modu
 buster-static -t "/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js"
 ```
 
-To run tests simultaneously on captured browsers, you may launch `buster-server`. Open the runner pag, specify your captured browser and click "capture".
+To run tests simultaneously on captured browsers, you may launch `buster-server`. Open the runner page with browser of choice and click "capture".
 
 ```shell
 buster-server
 buster-server running on http://localhost:1111
 ```
 
-You can then run tests using a command line like so with a static runner: 
+You may also run tests using a command line like so with a static runner: 
 
 ```shell
-buster-static -t "/Users/garry/workspace/troopjs/bower_components/troopjs-core/test/**/*.js"
+buster-static -t "./bower_components/troopjs-core/test/**/*.js"
 ```
 
-NOTE: If you want to add tests, please follow these guidelines: 
+NOTE: If you want to add more tests, please follow these guidelines: 
 
-- be aware that all tests shall be within the `test` directory for each module, each subjected component
-shall has a corresponding test suite file of it's own, filename must be suffixed by `-test`, for instance the test suite file
-for `troopjs-browser/component/widget` would be `troopjs-browser/test/component/widget-test`.
+- All tests are located in the `test` directory of each module. Each component
+has a corresponding test suite file of its own. Use the suffix `-test` when you name files (example: the test file for `troopjs-browser/component/widget` is named `troopjs-browser/test/component/widget-test`).
 
-If in your tests other dependent scripts are to be required, they have to appear inside the `libs` or `resources`
-section of `test/buster.js` of [buster configuration](http://docs.busterjs.org/en/latest/modules/buster-configuration/)
-to make them available at runtime.
+If your tests are dependent on script/s, the script/s have to appear inside the `libs` or `resources` section of `test/buster.js` of [buster configuration](http://docs.busterjs.org/en/latest/modules/buster-configuration/)
+so as to make them available at runtime.
 
 You may want to check individual module source for more details of how does TroopJS buster test case looks like.
 
