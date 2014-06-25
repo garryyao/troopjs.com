@@ -106,17 +106,15 @@ has a corresponding test suite file of its own. Use the suffix `-test` when you 
 If your tests are dependent on script/s, the script/s have to appear inside the `libs` or `resources` section of `test/buster.js` of [buster configuration](http://docs.busterjs.org/en/latest/modules/buster-configuration/)
 so as to make them available at runtime.
 
-You may want to check individual module source for more details of how does TroopJS buster test case looks like.
+We also suggest that you check individual module source for more details of how TroopJS buster test cases look like.
 
-## Build profile
+## Aggregate modules
 
-Bundle profiles currently `maxi.js` and `mini.js` are preset list of modules to be included in a requirejs
-[optimizer](http://requirejs.org/docs/optimization.html) run, all troopjs modules but not external ones will be bundled
-as a whole, with an extra `troopjs/version` module which indicates exact version of troopjs.
+The modules `maxi.js` and `mini.js` are aggregate modules used by the requirejs [optimizer](http://requirejs.org/docs/optimization.html). TroopJS bundles will be created together with a `troopjs/version` module which indicates the version of TroopJS.
 
-If you're not satisfied with our preset list of modules in bundle, you can easily build you own bundle by modifying
-one of the existing bundle profile then just to rebuild, to examplify we redefine how the `maxi` bundle looks like by
-removing some unused modules from `troopjs-data`, and add some interested widgets from the `troopjs-contrib-browser` package.
+If you're not satisfied with our aggregate modules, you can easily create your own bundle by modifying
+one of the existing aggregate modules or just create a new one. For example, we can redefine how the `maxi` bundle look like by
+removing some unused modules from `troopjs-data`, and adding some interesting modules from the `troopjs-contrib-browser` package.
 
 ```js
 define([
@@ -132,10 +130,10 @@ define([
 });
 ```
 
-Before rebuild the bundle, we need to make sure the new `troopjs-contrib-browser` package is properly installed locally.
+Before building the bundle, we need to make sure the new `troopjs-contrib-browser` package is installed locally.
 
 ```
 bower install troopjs-contrib-browser --save-dev
 ```
 
-Then to rebuild you bundle with `grunt compile` and we should be able to check the updated list of bundled modules in `dist/build.txt` file.
+Then, build your bundle with `grunt compile` and you should be able to check the updated list of bundled modules in the `dist/build.txt` file.
